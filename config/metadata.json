@@ -1,0 +1,65 @@
+{
+    "regional_gdp": {
+        "unit": "billion UZS"
+    },
+    "fixed_capital_investment": {
+        "unit": "billion UZS"
+    },
+    "fixed_capital_investment_per_capita": {
+        "unit": "thousand UZS"
+    },
+    "construction_output": {
+        "unit": "billion UZS"
+    },
+    "external_trade_turnover": {
+        "unit": "million USD"
+    },
+    "wholesale_trade": {
+        "unit": "million UZS"
+    },
+    "retail_trade": {
+        "unit": "billion UZS"
+    },
+    "electricity_production": {
+        "unit": "million kWh"
+    },
+    "coal_consumption": {
+        "unit": "thousand tons"
+    },
+    "industrial_output": {
+        "unit": "billion UZS"
+    },
+    "consumer_goods_output": {
+        "unit": "billion UZS"
+    },
+    "agricultural_output": {
+        "unit": "billion UZS"
+    },
+    "air_pollutant_emissions": {
+        "unit": "thousand tons"
+    },
+    "births_total": {
+        "unit": "persons"
+    },
+    "deaths_total": {
+        "unit": "persons"
+    },
+    "labor_resources": {
+        "unit": "thousand persons"
+    },
+    "economically_active_population": {
+        "unit": "thousand persons"
+    },
+    "employment_rate": {
+        "unit": "%"
+    },
+    "unemployed_population": {
+        "unit": "%"
+    },
+    "active_enterprises": {
+        "unit": "units"
+    },
+    "registered_crimes": {
+        "unit": "units"
+    }
+}

@@ -1,0 +1,23 @@
+{
+  "regional_gdp": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1299.csv",
+  "fixed_capital_investment": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1326.csv",
+  "fixed_capital_investment_per_capita": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1328.csv",
+  "construction_output": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_2402.csv",
+  "external_trade_turnover": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_2358.csv",
+  "wholesale_trade": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1494.csv",
+  "retail_trade": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_2704.csv",
+  "electricity_production": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_440.csv",
+  "coal_consumption": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_2683.csv",
+  "industrial_output": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_552.csv",
+  "consumer_goods_output": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_581.csv",
+  "agricultural_output": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1439.csv",
+  "air_pollutant_emissions": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1569.csv",
+  "births_total": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_223.csv",
+  "deaths_total": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_226.csv",
+  "labor_resources": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_515.csv",
+  "economically_active_population": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_554.csv",
+  "employment_rate": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1311.csv",
+  "unemployed_population": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1311.csv",
+  "active_enterprises": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_256.csv",
+  "registered_crimes": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_800.csv"
+}
