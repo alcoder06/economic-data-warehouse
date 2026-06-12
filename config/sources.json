@@ -7,7 +7,6 @@
   "wholesale_trade": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1494.csv",
   "retail_trade": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_2704.csv",
   "electricity_production": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_440.csv",
-  "coal_consumption": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_2683.csv",
   "industrial_output": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_552.csv",
   "consumer_goods_output": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_581.csv",
   "agricultural_output": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1439.csv",

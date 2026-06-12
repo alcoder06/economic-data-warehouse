@@ -1,7 +1,26 @@
 venv/
+.venv/
 .idea/
+.vscode/
+
+# Python
 __pycache__/
 *.pyc
+*.pyo
+
+# Jupyter
+.ipynb_checkpoints/
+notebooks/economical_analysis_partial.ipynb
+notebooks/economical_analysis_executed.ipynb
+
+# Data
 data/raw/
 data/processed/
+outputs/
+
+# Misc
+*.sqlite
+*.db
+.env
+..py
 

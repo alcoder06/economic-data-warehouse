@@ -1,0 +1,21 @@
+metric_id,metric_code,metric_name,unit
+1,active_enterprises,Active Enterprises,units
+2,agricultural_output,Agricultural Output,billion UZS
+3,air_pollutant_emissions,Air Pollutant Emissions,thousand tons
+4,births_total,Births Total,persons
+5,construction_output,Construction Output,billion UZS
+6,consumer_goods_output,Consumer Goods Output,billion UZS
+7,deaths_total,Deaths Total,persons
+8,economically_active_population,Economically Active Population,thousand persons
+9,electricity_production,Electricity Production,million kWh
+10,employment_rate,Employment Rate,%
+11,external_trade_turnover,External Trade Turnover,million USD
+12,fixed_capital_investment,Fixed Capital Investment,billion UZS
+13,fixed_capital_investment_per_capita,Fixed Capital Investment Per Capita,thousand UZS
+14,industrial_output,Industrial Output,billion UZS
+15,labor_resources,Labor Resources,thousand persons
+16,regional_gdp,Regional Gdp,billion UZS
+17,registered_crimes,Registered Crimes,units
+18,retail_trade,Retail Trade,billion UZS
+19,unemployed_population,Unemployed Population,%
+20,wholesale_trade,Wholesale Trade,million UZS

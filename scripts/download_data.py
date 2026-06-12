@@ -3,16 +3,9 @@ import json
 import requests
 import logging
 
-# Configure logging
-logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 
-# Project base directory
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
-# Paths
 CONFIG_PATH = os.path.join(BASE_DIR, "config", "sources.json")
 RAW_DATA_PATH = os.path.join(BASE_DIR, "data", "bronze")
 
@@ -46,4 +39,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-# price index

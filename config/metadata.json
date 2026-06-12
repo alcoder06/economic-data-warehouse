@@ -23,9 +23,6 @@
     "electricity_production": {
         "unit": "million kWh"
     },
-    "coal_consumption": {
-        "unit": "thousand tons"
-    },
     "industrial_output": {
         "unit": "billion UZS"
     },

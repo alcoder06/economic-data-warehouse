@@ -1,235 +1,131 @@
-📊 Economic Data Pipeline & Star Schema Warehouse
-📌 Project Overview
+# Uzbekistan Economic Data Warehouse
 
-This project builds a complete data pipeline and star schema warehouse for regional economic data of Uzbekistan.
+A production-ready data pipeline and analytical workspace for Uzbekistan's macroeconomic indicators. This repository is built to support reproducible data ingestion, transformation, quality validation, and exploratory analysis for both national and regional economic performance.
 
-The goal is to transform multiple wide-format economic datasets (e.g., active enterprises, income per capita, etc.) into a clean, scalable, analysis-ready data warehouse that can be used in:
+## Executive summary
 
-🐍 Python (Pandas / analysis / feature engineering)
+This project captures Uzbekistan's economic transition between 2010 and 2024, with a focus on:
+- national GDP dynamics and growth drivers
+- fixed capital investment and external trade contributions
+- employment trends and productivity evolution
+- regional inequality, convergence, and structural divergence
 
-🗄 SQL
+The analysis highlights a strong capital- and productivity-driven expansion after 2016, resilient trade recovery after the COVID-19 shock, and widening regional divergence driven by productivity and industrial strength.
 
-📊 Power BI
+## What makes this project strong
 
-📈 Future ML models
+- **Modular pipeline design**: bronze-silver-gold architecture for clean, traceable data transformations
+- **Analytical depth**: national and regional analysis with complementing economic indicators
+- **Story-driven outputs**: clear narrative from macroeconomic trends to regional structural shifts
+- **Quality control**: validation scripts enforce completeness, uniqueness, and reference integrity
+- **Reproducibility**: a fully documented setup and execution path for local replication
 
-This project demonstrates:
+## Repository structure
 
-Data modeling (Star Schema)
+- `config/` — source configuration and metadata definitions
+- `data/bronze/` — raw downloaded files from official statistical sources
+- `data/silver/` — cleaned, standardized intermediate datasets
+- `data/gold/` — star-schema analytics-ready output
+- `scripts/` — ETL, transformation, validation, and pipeline orchestration
+- `notebooks/` — exploratory analysis and reporting
+- `sql/` — data warehouse schema and example analytical queries
+- `powerbi/` — placeholder for future dashboard artifacts
 
-Data transformation (wide → long format)
+## Data architecture
 
-ETL pipeline structure
+The project uses a layered data warehouse approach:
 
-Dimensional design
+1. **Bronze**: ingest raw source data into a stable raw layer
+2. **Silver**: standardize region names, metric codes, and year coverage
+3. **Gold**: build analytical tables in a star schema format, including `fact_economic` and dimension tables
 
-Scalable economic time-series architecture
+This approach ensures that raw data is preserved while analytics are built on a clean, consistent foundation.
 
-🗂 Dataset Structure (Raw Data)
+## How to run the project
 
-The raw data consists of separate Excel files for each economic metric, structured in wide format:
+### 1. Install environment
 
-Classification	2010	2011	2012	...
-Andijan	...	...	...	
-Bukhara	...	...	...	
+```bash
+python -m pip install -r requirements.txt
+```
 
-Each file represents one metric:
+### 2. Run the pipeline
 
-Active enterprises
+```bash
+python scripts/main_pipeline.py --steps all
+```
 
-Income per capita
+### 3. Run individual pipeline stages
 
-(Future metrics can be added)
+```bash
+python scripts/main_pipeline.py --steps download
+python scripts/main_pipeline.py --steps transform
+python scripts/main_pipeline.py --steps gold
+python scripts/main_pipeline.py --steps validate
+```
 
-This format is not analysis-ready and must be transformed.
+### 4. Inspect results
 
-🏗 Project Architecture
-economic-data-pipeline/
-│
-├── data/
-│   ├── raw/          # Original Excel files (wide format)
-│   ├── staging/      # Melted & cleaned intermediate files
-│   └── warehouse/    # Final fact & dimension tables
-│
-├── scripts/
-│   ├── extract.py
-│   ├── transform.py
-│   └── load.py
-│
-├── notebooks/
-│   analysis.ipynb
-│
-├── powerbi/
-│   dashboard.pbix
-│
-├── README.md
-└── requirements.txt
+- `data/gold/fact_economic.csv`
+- `data/gold/dim_metric.csv`
+- `data/gold/dim_region.csv`
+- `notebooks/economical_analysis_clean.ipynb`
 
-🔄 ETL Pipeline
-1️⃣ Extract
+## Analysis notebook
 
-Load raw Excel files
+The primary analysis notebook, `notebooks/economical_analysis_clean.ipynb`, is structured into:
+- data preparation and cleaning
+- national macro analysis (GDP, investment, trade, employment, productivity, sector structure)
+- regional analysis (GDP shares, investment shares, trade shares, productivity, inequality, convergence)
+- summary conclusions and policy-relevant insights
 
-Standardize column names
+The notebook is designed for a data-savvy audience and provides interpretive commentary alongside visualizations.
 
-Validate data types
+## Validation and data quality
 
-2️⃣ Transform
-Step A: Convert Wide → Long Format
+`scripts/validate_data.py` performs the following checks on gold-layer outputs:
+- no duplicate `(region_code, year, metric_id)` records
+- valid foreign-key relationships for regions and metrics
+- no missing critical values in `year`, `metric_id`, or `region_code`
+- completeness reporting for the selected year range and indicators
 
-Each dataset is melted using Pandas:
+## Key findings
 
-df_long = df.melt(
-    id_vars=["Classification"],
-    var_name="year",
-    value_name="value"
-)
+The project is built to support these headline findings:
+- Uzbekistan's nominal GDP growth accelerated after 2016, driven by investment and trade expansion
+- fixed capital investment has strong correlation with national GDP growth
+- trade recovered strongly after the pandemic, reinforcing economic resilience
+- employment recovery lagged but stabilized, suggesting growth is more productivity-driven than labor-intensive
+- regional divergence increased over time, with stronger regions pulling ahead in productivity and industrial output
 
+## Recommended next steps
 
-This converts:
+- add a dedicated data dictionary for all metric codes and units
+- document source provenance and download refresh procedures
+- include real-term (inflation-adjusted) analysis if price indices are available
+- add regression diagnostics and model validation for the forecasting sections
+- create summary visuals and executive bullet points for non-technical stakeholders
 
-Wide format:
+## Notes
 
-Region | 2010 | 2011
+- All data originates from the official Uzbekistan Statistics Agency (stat.uz) open API
+- No credentials or private data are stored in this repository
+- The `powerbi/` folder is reserved for future dashboard development
 
+## Reproducing the analysis (quick)
 
-Into:
+1. Create and activate a Python environment, then install dependencies:
 
-Region | year | value
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+```
 
-Step B: Add Metric Identifier
+2. Launch the notebook from the repository root:
 
-Each dataset is tagged with its metric name:
+```powershell
+jupyter lab notebooks/economical_analysis_clean.ipynb
+```
 
-region | year | value | metric_name
-
-Step C: Combine All Metrics
-
-All melted datasets are concatenated into one unified table.
-
-Step D: Create Dimension Tables
-
-The following dimension tables are generated:
-
-📌 dim_region
-
-| region_id | region_name |
-
-📌 dim_metric
-
-| metric_id | metric_name | unit |
-
-📌 dim_year (optional but scalable)
-
-| year | decade | is_post_covid |
-
-⭐ Final Star Schema
-fact_economic
-
-| region_id | year | metric_id | value |
-
-This structure allows:
-
-Unlimited metric expansion
-
-Efficient Power BI relationships
-
-Clean SQL aggregation
-
-Scalable economic analysis
-
-🎯 Why Star Schema?
-
-Instead of keeping separate fact tables for each metric, this project uses:
-
-(region, year, metric, value)
-
-
-Advantages:
-
-Scalable to new indicators
-
-Clean joins
-
-Consistent grain (region-year level)
-
-Enterprise-style modeling
-
-Single source of truth
-
-📊 Power BI Integration
-
-The star schema is imported into Power BI with relationships:
-
-fact_economic → dim_region
-
-fact_economic → dim_metric
-
-fact_economic → dim_year
-
-This enables:
-
-Time intelligence
-
-Cross-metric comparisons
-
-Regional performance analysis
-
-Clean DAX modeling
-
-🐍 Python Analysis
-
-In Python, the fact table can be merged with dimensions when needed:
-
-df = fact.merge(dim_region, on="region_id")
-
-
-This allows:
-
-Feature engineering
-
-Growth rate calculations
-
-Rolling averages
-
-ML modeling
-
-📈 Future Improvements
-
-Add automated data validation checks
-
-Add logging system
-
-Move warehouse to PostgreSQL
-
-Automate ETL process
-
-Add unit tests
-
-Deploy pipeline
-
-🧠 Key Concepts Demonstrated
-
-Data normalization
-
-Dimensional modeling
-
-Wide-to-long transformation
-
-Surrogate keys
-
-Time-series data design
-
-Scalable warehouse architecture
-
-🚀 Project Purpose
-
-This project was upgraded from a simple analytical task into a structured data engineering project to demonstrate:
-
-Professional data modeling
-
-ETL pipeline thinking
-
-Clean architecture design
-
-Reusable analytical structure
+The notebook uses `scripts/load_data.py` to centralize data loading and supports optional real-term adjustments when a deflator metric is present in the gold data. Regression diagnostic plots are saved to `outputs/diagnostics/` when those cells are run.

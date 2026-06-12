@@ -9,6 +9,19 @@ SILVER_PATH = os.path.join(BASE_DIR, "data", "silver")
 os.makedirs(SILVER_PATH, exist_ok=True)
 
 
+def find_region_column(columns):
+    english_candidates = [
+        col for col in columns
+        if col.lower().endswith("_en") or "english" in col.lower() or "klassifikator_en" in col.lower()
+    ]
+
+    if english_candidates:
+        return english_candidates[0]
+
+    non_code_cols = [col for col in columns if col != "Code" and not str(col).strip().isdigit()]
+    return non_code_cols[0] if non_code_cols else columns[1]
+
+
 def process_file(file_name):
     print(f"Processing {file_name}...")
 
@@ -24,25 +37,22 @@ def process_file(file_name):
         print(f"Skipping {file_name} (No 'Code' column)")
         return
 
-    # Ensure Code is string
     df["Code"] = df["Code"].astype(str)
-
-    # Keep only 4-digit codes (regions + national level)
     df = df[df["Code"].str.len() == 4].copy()
 
-    # English classification column (D column)
-    english_column = df.columns[3]  # adjust if structure differs
+    english_column = find_region_column(df.columns)
+    year_columns = [col for col in df.columns if str(col).strip().isdigit()]
 
-    # Detect year columns
-    year_columns = [col for col in df.columns if col.isdigit()]
+    if not year_columns:
+        print(f"Skipping {file_name} (No year columns found)")
+        return
 
-    # Keep only English column + year columns
-    df_silver = df[[english_column] + year_columns].copy()
+    df_silver = df[["Code", english_column] + year_columns].copy()
+    df_silver = df_silver.rename(columns={
+        "Code": "region_code",
+        english_column: "region_name"
+    })
 
-    # Rename English column to standardized name
-    df_silver = df_silver.rename(columns={english_column: "Classification"})
-
-    # Save to Silver layer
     output_path = os.path.join(SILVER_PATH, file_name)
     df_silver.to_csv(output_path, index=False)
 

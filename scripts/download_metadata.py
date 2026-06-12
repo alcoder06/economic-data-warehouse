@@ -18,9 +18,7 @@ def load_sources():
 
 
 def normalize_unit(unit_raw):
-    """
-    Standardizes unit names.
-    """
+    """Map raw unit strings from the source API to canonical labels."""
     if not unit_raw:
         return None
 
