@@ -1,0 +1,87 @@
+table Fact
+	lineageTag: 4622e0d1-75c2-442f-9056-9a4194f247a3
+
+	column region_code
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 882f7926-569e-4730-9323-c03bf54e8593
+		summarizeBy: none
+		sourceColumn: region_code
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 737dfee3-2211-4c5b-8768-a8bdfbe51c09
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric_id
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 0885f1cb-7365-428c-a332-1613bdda8520
+		summarizeBy: none
+		sourceColumn: metric_id
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: 2b5d0c0e-b7e8-4c97-8c5b-92789242d59a
+		summarizeBy: none
+		sourceColumn: value
+
+		annotation SummarizationSetBy = User
+
+	column real_value
+		dataType: double
+		lineageTag: 022835e2-7ac2-4810-a808-9fe3c908d231
+		summarizeBy: none
+		sourceColumn: real_value
+
+		annotation SummarizationSetBy = Automatic
+
+	column value_per_capita
+		dataType: double
+		lineageTag: fa14b7e4-42ab-4e10-a31b-5d821fcf75f3
+		summarizeBy: none
+		sourceColumn: value_per_capita
+
+		annotation SummarizationSetBy = User
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column real_value_per_capita
+		dataType: double
+		lineageTag: 3e26cef7-4bcb-4414-817b-3f5226143660
+		summarizeBy: none
+		sourceColumn: real_value_per_capita
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Fact = m
+		mode: import
+		source =
+				let
+				     Source = Csv.Document(
+				      File.Contents(DataFolder & "\fact_economic.csv"),
+				      [Delimiter=",", Columns=7, Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+				  ),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"region_code", Int64.Type}, {"year", Int64.Type}, {"metric_id", Int64.Type}, {"value", type number}, {"real_value", type number}, {"value_per_capita", type number}, {"real_value_per_capita", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

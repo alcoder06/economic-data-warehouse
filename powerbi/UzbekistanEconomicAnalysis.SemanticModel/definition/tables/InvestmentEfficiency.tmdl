@@ -1,0 +1,58 @@
+table InvestmentEfficiency
+	lineageTag: a3679e9a-7ed6-4390-89fa-913ddcdf57a9
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 72d16d21-eba0-48df-8d6d-613192b50df9
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column investment_pct_gdp
+		dataType: double
+		lineageTag: e0d17704-9c75-48d3-8a49-ae69282e0885
+		summarizeBy: none
+		sourceColumn: investment_pct_gdp
+
+		annotation SummarizationSetBy = Automatic
+
+	column real_growth_pct
+		dataType: double
+		lineageTag: 04ff55ee-e8c6-4cc0-8139-a6689f80081c
+		summarizeBy: none
+		sourceColumn: real_growth_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column icor
+		dataType: double
+		lineageTag: ff8fbd4f-c5d6-4222-a887-5d0fe7eed66c
+		summarizeBy: none
+		sourceColumn: icor
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_outlier
+		dataType: boolean
+		lineageTag: df977947-4d03-4ce5-86ba-86791d10947a
+		summarizeBy: none
+		sourceColumn: is_outlier
+
+		annotation SummarizationSetBy = Automatic
+
+	partition InvestmentEfficiency = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\fact_investment_efficiency.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"year", Int64.Type}, {"investment_pct_gdp", type number}, {"real_growth_pct", type number}, {"icor", type number}, {"is_outlier", type logical}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

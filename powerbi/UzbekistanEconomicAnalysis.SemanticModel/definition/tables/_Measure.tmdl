@@ -1,0 +1,325 @@
+table _Measure
+	lineageTag: 42aebcf3-f228-4c9c-ab48-8e9ba32a2810
+
+	measure 'Value (nominal)' =
+			VAR MetricsInScope = DISTINCTCOUNT('Metric'[metric_id])
+			RETURN
+			    IF(MetricsInScope > 1, BLANK(), SUM('Fact'[value]))
+		formatString: #,##0.0
+		displayFolder: 1 Base
+		lineageTag: daa4b072-95d7-44b3-9cc8-025dc22d776e
+
+	measure 'Value (real)' =
+			VAR MetricsInScope = DISTINCTCOUNT('Metric'[metric_id])
+			RETURN
+			    IF(MetricsInScope > 1, BLANK(), SUM('Fact'[real_value]))
+		formatString: #,##0.0
+		displayFolder: 1 Base
+		lineageTag: 31605a4b-5593-4dfe-930c-f5a82907c16a
+
+	measure 'Value (real per capita)' =
+			VAR MetricsInScope = DISTINCTCOUNT('Metric'[metric_id])
+			RETURN
+			    IF(MetricsInScope > 1, BLANK(), SUM('Fact'[real_value_per_capita]))
+		formatString: #,##0.0000
+		displayFolder: 1 Base
+		lineageTag: 4e57f1be-d44a-470f-803d-b72648cdaf46
+
+	measure 'GDP Nominal' =
+			CALCULATE(
+			    SUM('Fact'[value]),
+			    'Metric'[metric_code] = "regional_gdp",
+			    'Region'[is_national] = TRUE
+			)
+		formatString: #,##0
+		displayFolder: 2 National
+		lineageTag: 459d125e-f30c-4db2-a72a-3387d5d51ef2
+
+	measure 'GDP Real' =
+			CALCULATE(
+			    SUM('Fact'[real_value]),
+			    'Metric'[metric_code] = "regional_gdp",
+			    'Region'[is_national] = TRUE
+			)
+		formatString: #,##0
+		displayFolder: 2 National
+		lineageTag: fde253f9-1efd-450f-9cfc-7df5563a66f4
+
+	measure 'Investment Nominal' =
+			CALCULATE(
+			    SUM('Fact'[value]),
+			    'Metric'[metric_code] = "fixed_capital_investment",
+			    'Region'[is_national] = TRUE
+			)
+		formatString: #,##0
+		displayFolder: 2 National
+		lineageTag: 38664254-1a17-4fba-8b47-6d90139a60b6
+
+	measure 'Investment Real' =
+			CALCULATE(
+			    SUM('Fact'[real_value]),
+			    'Metric'[metric_code] = "fixed_capital_investment",
+			    'Region'[is_national] = TRUE
+			)
+		formatString: #,##0
+		displayFolder: 2 National
+		lineageTag: b00d3c4c-5907-49c6-9842-7600425eed5d
+
+	measure 'GDP Nominal Growth %' =
+			VAR ThisYear = MAX('Year'[year])
+			VAR Current  = [GDP Nominal]
+			VAR Previous =
+			    CALCULATE([GDP Nominal], REMOVEFILTERS('Year'), 'Year'[year] = ThisYear - 1)
+			RETURN
+			    DIVIDE(Current - Previous, Previous)
+		formatString: 0.0%
+		displayFolder: 3 Growth
+		lineageTag: 430c3cba-545f-46eb-b550-86db65b24da6
+
+	measure 'GDP Real Growth %' =
+			VAR ThisYear = MAX('Year'[year])
+			VAR Current  = [GDP Real]
+			VAR Previous =
+			    CALCULATE([GDP Real], REMOVEFILTERS('Year'), 'Year'[year] = ThisYear - 1)
+			RETURN
+			    DIVIDE(Current - Previous, Previous)
+		formatString: 0.0%
+		displayFolder: 3 Growth
+		lineageTag: 106e4195-01ac-40d0-a467-eb0205259bea
+
+	measure 'Investment Nominal Growth %' =
+			VAR ThisYear = MAX('Year'[year])
+			VAR Current  = [Investment Nominal]
+			VAR Previous =
+			    CALCULATE([Investment Nominal], REMOVEFILTERS('Year'), 'Year'[year] = ThisYear - 1)
+			RETURN
+			    DIVIDE(Current - Previous, Previous)
+		formatString: 0.0%
+		displayFolder: 3 Growth
+		lineageTag: 5336c41f-f44d-4fc6-aa54-35fdb1763ed9
+
+	measure 'Investment Real Growth %' =
+			VAR ThisYear = MAX('Year'[year])
+			VAR Current  = [Investment Real]
+			VAR Previous =
+			    CALCULATE([Investment Real], REMOVEFILTERS('Year'), 'Year'[year] = ThisYear - 1)
+			RETURN
+			    DIVIDE(Current - Previous, Previous)
+		formatString: 0.0%
+		displayFolder: 3 Growth
+		lineageTag: 6cb29242-63b8-44b5-b3c5-53bcb520413a
+
+	measure 'Price Level Multiple' =
+			VAR FirstYear = MIN('Year'[year])
+			VAR LastYear  = MAX('Year'[year])
+			VAR First = CALCULATE(MAX('Year'[gdp_deflator]), 'Year'[year] = FirstYear)
+			VAR Last  = CALCULATE(MAX('Year'[gdp_deflator]), 'Year'[year] = LastYear)
+			RETURN
+			    DIVIDE(Last, First)
+		formatString: 0.00"x"
+		displayFolder: 4 Nominal illusion
+		lineageTag: 23ea30f5-b9f3-451f-9ca5-856e14fcf136
+
+	measure 'Nominal Growth Multiple' =
+			VAR FirstYear = MIN('Year'[year])
+			VAR LastYear  = MAX('Year'[year])
+			RETURN
+			    DIVIDE(
+			        CALCULATE([GDP Nominal], 'Year'[year] = LastYear),
+			        CALCULATE([GDP Nominal], 'Year'[year] = FirstYear)
+			    )
+		formatString: 0.00"x"
+		displayFolder: 4 Nominal illusion
+		lineageTag: 2c45f1c9-aec9-4850-90d6-3ab982647c36
+
+	measure 'Real Growth Multiple' =
+			VAR FirstYear = MIN('Year'[year])
+			VAR LastYear  = MAX('Year'[year])
+			RETURN
+			    DIVIDE(
+			        CALCULATE([GDP Real], 'Year'[year] = LastYear),
+			        CALCULATE([GDP Real], 'Year'[year] = FirstYear)
+			    )
+		formatString: 0.00"x"
+		displayFolder: 4 Nominal illusion
+		lineageTag: 1811242c-87d8-4b36-bb98-afdebdcf643d
+
+	measure 'Share of Growth That Is Price' =
+			VAR NominalGrowth = [Nominal Growth Multiple] - 1
+			VAR RealGrowth    = [Real Growth Multiple] - 1
+			RETURN
+			    IF(
+			        NominalGrowth > 0,
+			        1 - DIVIDE(RealGrowth, NominalGrowth)
+			    )
+		formatString: 0.0%
+		displayFolder: 4 Nominal illusion
+		lineageTag: 714e9430-aa81-44a1-82b3-6a9b3041866b
+
+	measure 'GDP Nominal Indexed' =
+			VAR BaseYear = CALCULATE(MIN('Year'[year]), ALLSELECTED('Year'))
+			VAR BaseValue = CALCULATE([GDP Nominal], 'Year'[year] = BaseYear, ALLSELECTED('Year'))
+			RETURN
+			    DIVIDE([GDP Nominal], BaseValue) * 100
+		formatString: #,##0
+		displayFolder: 4 Nominal illusion
+		lineageTag: ae7c48f4-ab57-4f3e-aded-839155c4d13c
+
+	measure 'GDP Real Indexed' =
+			VAR BaseYear = CALCULATE(MIN('Year'[year]), ALLSELECTED('Year'))
+			VAR BaseValue = CALCULATE([GDP Real], 'Year'[year] = BaseYear, ALLSELECTED('Year'))
+			RETURN
+			    DIVIDE([GDP Real], BaseValue) * 100
+		formatString: #,##0
+		displayFolder: 4 Nominal illusion
+		lineageTag: 2309a80b-5336-46f2-86bf-de2411f00e42
+
+	measure 'Corr GDP vs Investment' =
+			VAR UseReal = SELECTEDVALUE('Price Basis'[Basis], "Real") = "Real"
+			VAR Pairs =
+			    ADDCOLUMNS(
+			        FILTER(
+			            VALUES('Year'[year]),
+			            'Year'[year] >= 2011 && 'Year'[year] <= 2024
+			        ),
+			        "@GDP", IF(UseReal, CALCULATE([GDP Real Growth %]), CALCULATE([GDP Nominal Growth %])),
+			        "@Inv", IF(UseReal, CALCULATE([Investment Real Growth %]), CALCULATE([Investment Nominal Growth %]))
+			    )
+			VAR Clean = FILTER(Pairs, NOT ISBLANK([@GDP]) && NOT ISBLANK([@Inv]))
+			VAR N     = COUNTROWS(Clean)
+			VAR MeanX = AVERAGEX(Clean, [@GDP])
+			VAR MeanY = AVERAGEX(Clean, [@Inv])
+			VAR Cov   = SUMX(Clean, ([@GDP] - MeanX) * ([@Inv] - MeanY))
+			VAR SdX   = SQRT(SUMX(Clean, ([@GDP] - MeanX) ^ 2))
+			VAR SdY   = SQRT(SUMX(Clean, ([@Inv] - MeanY) ^ 2))
+			RETURN
+			    IF(N > 2, DIVIDE(Cov, SdX * SdY))
+		formatString: +0.000;-0.000
+		displayFolder: 5 Correlation
+		lineageTag: a5a8e7df-2b90-4831-911e-0ddca96aa611
+
+	measure 'GDP Growth (selected basis)' =
+			VAR UseReal = SELECTEDVALUE('Price Basis'[Basis], "Real") = "Real"
+			RETURN
+			    IF(UseReal, [GDP Real Growth %], [GDP Nominal Growth %])
+		formatString: 0.0%
+		displayFolder: 5 Correlation
+		lineageTag: 58049ab5-f5fa-49bb-9a51-15cffb34d1e2
+
+	measure 'Investment Growth (selected basis)' =
+			VAR UseReal = SELECTEDVALUE('Price Basis'[Basis], "Real") = "Real"
+			RETURN
+			    IF(UseReal, [Investment Real Growth %], [Investment Nominal Growth %])
+		formatString: 0.0%
+		displayFolder: 5 Correlation
+		lineageTag: 561b7a13-b95b-49cd-b99f-6681b905a2a9
+
+	measure 'Gini (real GDP per capita)' = AVERAGE('Year'[gini_real_gdp_pc])
+		formatString: 0.000
+		displayFolder: 6 Regional
+		lineageTag: 722206bf-9392-412e-b011-8253d58730ba
+
+	measure 'Gini (nominal GDP levels)' = AVERAGE('Year'[gini_nominal_levels])
+		formatString: 0.000
+		displayFolder: 6 Regional
+		lineageTag: 4998b1a5-c5f5-44a4-b159-c5713d36c185
+
+	measure 'Regional Dispersion' = AVERAGE('Year'[sigma_log_dispersion])
+		formatString: 0.000
+		displayFolder: 6 Regional
+		lineageTag: a34f6673-d93d-4566-bf5f-e43cc5e0bbf1
+
+	measure 'Region Share of National %' =
+			VAR RegionValue = [Value (real)]
+			VAR NationalValue =
+			    CALCULATE([Value (real)], 'Region'[is_national] = TRUE, REMOVEFILTERS('Region'))
+			RETURN
+			    DIVIDE(RegionValue, NationalValue)
+		formatString: 0.0%
+		displayFolder: 6 Regional
+		lineageTag: 88462b98-b6a5-4d19-8d0f-ec87e653693f
+
+	measure 'Beta Coefficient' = SELECTEDVALUE('Convergence'[beta])
+		formatString: +0.000;-0.000
+		displayFolder: 7 Convergence
+		lineageTag: 5d728095-9c44-4e65-a5d1-cf9fd8a9aedc
+
+	measure 'Beta P Value' = SELECTEDVALUE('Convergence'[p_value])
+		formatString: 0.000
+		displayFolder: 7 Convergence
+		lineageTag: a7d116ea-1e9a-4dfe-88d4-42d8e614574d
+
+	measure 'Beta R Squared' = SELECTEDVALUE('Convergence'[r_squared])
+		formatString: 0.000
+		displayFolder: 7 Convergence
+		lineageTag: 857f8607-c93d-4bb5-aae1-e4f45b7ae95d
+
+	measure 'Convergence Verdict' = SELECTEDVALUE('Convergence'[verdict], "Select one period")
+		displayFolder: 7 Convergence
+		lineageTag: 9a008651-db20-47e9-9079-f11063d5a309
+
+	measure 'Convergence Verdict Colour' =
+			SWITCH(
+			    SELECTEDVALUE('Convergence'[verdict]),
+			    "convergence", "#2E7D5B",
+			    "divergence",  "#B33A3A",
+			    "#4A5761"
+			)
+		displayFolder: 7 Convergence
+		lineageTag: b3840f9c-f7e0-423d-b522-00604022ca30
+
+	measure 'Convergence Title' =
+			VAR Period = SELECTEDVALUE('Convergence'[period])
+			RETURN
+			    IF(
+			        ISBLANK(Period),
+			        "Regional convergence: select a period",
+			        Period & " (" & SELECTEDVALUE('Convergence'[start_year]) & "-" &
+			        SELECTEDVALUE('Convergence'[end_year]) & "):  beta = " &
+			        FORMAT(SELECTEDVALUE('Convergence'[beta]), "+0.000") & ",  p = " &
+			        FORMAT(SELECTEDVALUE('Convergence'[p_value]), "0.000")
+			    )
+		displayFolder: 8 Titles
+		lineageTag: 080b8a6e-085d-48b8-a62c-a9575e926562
+
+	measure 'Price Basis Title' =
+			"GDP and investment growth, " &
+			LOWER(SELECTEDVALUE('Price Basis'[Basis], "real")) &
+			" terms  (r = " & FORMAT([Corr GDP vs Investment], "+0.000") & ")"
+		displayFolder: 8 Titles
+		lineageTag: 1c79d964-0cbc-48e2-ac26-7f8b43ae1121
+
+	measure 'Initial Level (log)' = AVERAGE('ConvergencePoints'[log_initial])
+		formatString: 0.00
+		displayFolder: 7 Convergence
+		lineageTag: f35dfdbf-95d5-462e-8652-6e70409e3313
+
+	measure 'Annualised Growth %' = AVERAGE('ConvergencePoints'[annual_growth_pct])
+		formatString: 0.0
+		displayFolder: 7 Convergence
+		lineageTag: 90a4198c-c1e7-4475-8f06-43e454443da9
+
+	column Column1
+		dataType: string
+		isHidden
+		lineageTag: 5f746e27-657d-4fbd-9498-a5c8cd0c2610
+		summarizeBy: none
+		sourceColumn: Column1
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measure = m
+		mode: import
+		source =
+				let
+				    Source = Table.FromRows(Json.Document(Binary.Decompress(Binary.FromText("i44FAA==", BinaryEncoding.Base64), Compression.Deflate)), let _t = ((type nullable text) meta [Serialized.Text = true]) in type table [Column1 = _t]),
+				    #"Changed Type" = Table.TransformColumnTypes(Source,{{"Column1", type text}})
+				in
+				    #"Changed Type"
+
+	changedProperty = IsHidden
+
+	annotation PBI_ResultType = Table
+

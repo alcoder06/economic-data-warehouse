@@ -1,0 +1,36 @@
+relationship Fact_Region
+	fromColumn: Fact.region_code
+	toColumn: Region.region_code
+
+relationship Fact_Metric
+	fromColumn: Fact.metric_id
+	toColumn: Metric.metric_id
+
+relationship Fact_Year
+	fromColumn: Fact.year
+	toColumn: Year.year
+
+relationship ConvergencePoints_Region
+	fromColumn: ConvergencePoints.region_code
+	toColumn: Region.region_code
+
+relationship GrowthAccounting_Year
+	fromColumn: GrowthAccounting.year
+	toColumn: Year.year
+
+relationship InvestmentEfficiency_Year
+	fromColumn: InvestmentEfficiency.year
+	toColumn: Year.year
+
+relationship SectorContributions_Year
+	fromColumn: SectorContributions.year
+	toColumn: Year.year
+
+relationship Benchmark_Year
+	fromColumn: Benchmark.year
+	toColumn: Year.year
+
+relationship Benchmark_Country
+	fromColumn: Benchmark.country_code
+	toColumn: Country.country_code
+

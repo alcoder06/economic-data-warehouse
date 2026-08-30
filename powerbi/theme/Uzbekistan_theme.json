@@ -1,0 +1,51 @@
+{
+  "name": "Uzbekistan Economic Analysis",
+  "dataColors": [
+    "#0E6E64",
+    "#C4622D",
+    "#2E5C8A",
+    "#B0862A",
+    "#6B4E8C",
+    "#3F7D3A",
+    "#A34A63",
+    "#4A5761"
+  ],
+  "background": "#FFFFFF",
+  "foreground": "#141A1E",
+  "tableAccent": "#0E6E64",
+  "good": "#2E7D5B",
+  "neutral": "#B0862A",
+  "bad": "#B33A3A",
+  "maximum": "#0E6E64",
+  "center": "#9CC4BF",
+  "minimum": "#EFF4F3",
+  "textClasses": {
+    "title": { "fontFace": "Segoe UI Semibold", "fontSize": 14, "color": "#141A1E" },
+    "header": { "fontFace": "Segoe UI Semibold", "fontSize": 12, "color": "#141A1E" },
+    "label": { "fontFace": "Segoe UI", "fontSize": 10, "color": "#3B454C" },
+    "callout": { "fontFace": "Segoe UI Semibold", "fontSize": 32, "color": "#0E6E64" }
+  },
+  "visualStyles": {
+    "*": {
+      "*": {
+        "background": [{ "show": true, "color": { "solid": { "color": "#FFFFFF" } } }],
+        "border": [{ "show": true, "color": { "solid": { "color": "#E1E7E6" } }, "radius": 4 }],
+        "title": [
+          {
+            "show": true,
+            "fontColor": { "solid": { "color": "#141A1E" } },
+            "fontSize": 12,
+            "fontFamily": "Segoe UI Semibold",
+            "alignment": "left"
+          }
+        ]
+      }
+    },
+    "page": {
+      "*": {
+        "background": [{ "color": { "solid": { "color": "#F5F8F7" } }, "transparency": 0 }],
+        "outspace": [{ "color": { "solid": { "color": "#E8EEED" } } }]
+      }
+    }
+  }
+}

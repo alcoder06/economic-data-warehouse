@@ -1,0 +1,265 @@
+{
+    "_comment": "National series from the World Bank Open Data API. Three jobs. First, supply the price, population and exchange-rate context the stat.uz catalogue does not publish, without which every soum series in the warehouse is uninterpretable across time. Second, extend the national picture back to 1987 so the 2017 reform sits inside the full post-Soviet arc. Third, provide comparators: nearly every figure in the World Bank Country Economic Update and Systematic Country Diagnostic for Uzbekistan is drawn against peers, because a growth rate on its own is a number and a growth rate against Kazakhstan is a finding.",
+    "start_year": 1987,
+    "end_year": 2026,
+    "country": "UZB",
+    "indicators": {
+        "wb_gdp_deflator": {
+            "wb_code": "NY.GDP.DEFL.ZS",
+            "metric_name": "GDP deflator",
+            "unit": "index, 2010=100",
+            "group": "Prices",
+            "note": "Rebased to 2010=100 in transform. Drives every real-terms conversion in the gold layer."
+        },
+        "wb_cpi": {
+            "wb_code": "FP.CPI.TOTL",
+            "metric_name": "Consumer price index",
+            "unit": "index, 2010=100",
+            "group": "Prices"
+        },
+        "wb_inflation_cpi_pct": {
+            "wb_code": "FP.CPI.TOTL.ZG",
+            "metric_name": "Inflation, consumer prices",
+            "unit": "%",
+            "group": "Prices"
+        },
+        "wb_exchange_rate_uzs_usd": {
+            "wb_code": "PA.NUS.FCRF",
+            "metric_name": "Official exchange rate",
+            "unit": "UZS per USD",
+            "group": "Prices",
+            "note": "Period average. Documents the September 2017 float."
+        },
+        "wb_real_gdp_growth_pct": {
+            "wb_code": "NY.GDP.MKTP.KD.ZG",
+            "metric_name": "Real GDP growth",
+            "unit": "%",
+            "group": "Output",
+            "note": "The independent benchmark the deflated stat.uz series is validated against."
+        },
+        "wb_real_gdp": {
+            "wb_code": "NY.GDP.MKTP.KD",
+            "metric_name": "Real GDP",
+            "unit": "constant 2015 USD",
+            "group": "Output"
+        },
+        "wb_real_gdp_per_capita": {
+            "wb_code": "NY.GDP.PCAP.KD",
+            "metric_name": "Real GDP per capita",
+            "unit": "constant 2015 USD",
+            "group": "Output"
+        },
+        "wb_gdp_current_usd": {
+            "wb_code": "NY.GDP.MKTP.CD",
+            "metric_name": "GDP",
+            "unit": "current USD",
+            "group": "Output"
+        },
+        "wb_gni_per_capita_atlas": {
+            "wb_code": "NY.GNP.PCAP.CD",
+            "metric_name": "GNI per capita, Atlas method",
+            "unit": "current USD",
+            "group": "Output",
+            "note": "The series the World Bank uses to assign income-group classification."
+        },
+        "wb_agriculture_pct_gdp": {
+            "wb_code": "NV.AGR.TOTL.ZS",
+            "metric_name": "Agriculture value added",
+            "unit": "% of GDP",
+            "group": "Structure"
+        },
+        "wb_industry_pct_gdp": {
+            "wb_code": "NV.IND.TOTL.ZS",
+            "metric_name": "Industry value added",
+            "unit": "% of GDP",
+            "group": "Structure"
+        },
+        "wb_services_pct_gdp": {
+            "wb_code": "NV.SRV.TOTL.ZS",
+            "metric_name": "Services value added",
+            "unit": "% of GDP",
+            "group": "Structure"
+        },
+        "wb_population": {
+            "wb_code": "SP.POP.TOTL",
+            "metric_name": "Population, total",
+            "unit": "persons",
+            "group": "Population",
+            "note": "Mid-year estimate. Regional population comes from stat.uz indicator 246 instead."
+        },
+        "wb_dependency_ratio": {
+            "wb_code": "SP.POP.DPND",
+            "metric_name": "Age dependency ratio",
+            "unit": "% of working-age",
+            "group": "Population",
+            "note": "Dependants per 100 working-age people. Tracks the demographic dividend window."
+        },
+        "wb_unemployment_pct": {
+            "wb_code": "SL.UEM.TOTL.ZS",
+            "metric_name": "Unemployment rate, ILO modelled",
+            "unit": "%",
+            "group": "Labour",
+            "note": "Modelled and internationally comparable, unlike the stat.uz series which changes methodology in 2018."
+        },
+        "wb_participation_pct": {
+            "wb_code": "SL.TLF.CACT.ZS",
+            "metric_name": "Labour force participation rate",
+            "unit": "%",
+            "group": "Labour"
+        },
+        "wb_participation_female_pct": {
+            "wb_code": "SL.TLF.CACT.FE.ZS",
+            "metric_name": "Labour force participation, female",
+            "unit": "%",
+            "group": "Labour"
+        },
+        "wb_employment_agriculture_pct": {
+            "wb_code": "SL.AGR.EMPL.ZS",
+            "metric_name": "Employment in agriculture",
+            "unit": "% of employment",
+            "group": "Labour",
+            "note": "Paired with the sector value-added shares, this is what makes an intersectoral shift-share possible."
+        },
+        "wb_employment_industry_pct": {
+            "wb_code": "SL.IND.EMPL.ZS",
+            "metric_name": "Employment in industry",
+            "unit": "% of employment",
+            "group": "Labour"
+        },
+        "wb_employment_services_pct": {
+            "wb_code": "SL.SRV.EMPL.ZS",
+            "metric_name": "Employment in services",
+            "unit": "% of employment",
+            "group": "Labour"
+        },
+        "wb_capital_formation_pct_gdp": {
+            "wb_code": "NE.GDI.TOTL.ZS",
+            "metric_name": "Gross capital formation",
+            "unit": "% of GDP",
+            "group": "Investment and trade",
+            "note": "The investment share of output, which is the ratio the nominal stat.uz investment series cannot give."
+        },
+        "wb_trade_pct_gdp": {
+            "wb_code": "NE.TRD.GNFS.ZS",
+            "metric_name": "Trade openness",
+            "unit": "% of GDP",
+            "group": "Investment and trade"
+        },
+        "wb_exports_pct_gdp": {
+            "wb_code": "NE.EXP.GNFS.ZS",
+            "metric_name": "Exports of goods and services",
+            "unit": "% of GDP",
+            "group": "Investment and trade"
+        },
+        "wb_imports_pct_gdp": {
+            "wb_code": "NE.IMP.GNFS.ZS",
+            "metric_name": "Imports of goods and services",
+            "unit": "% of GDP",
+            "group": "Investment and trade"
+        },
+        "wb_remittances_pct_gdp": {
+            "wb_code": "BX.TRF.PWKR.DT.GD.ZS",
+            "metric_name": "Personal remittances received",
+            "unit": "% of GDP",
+            "group": "Investment and trade",
+            "note": "Large for Uzbekistan and almost invisible in the domestic production statistics."
+        },
+        "wb_current_account_pct_gdp": {
+            "wb_code": "BN.CAB.XOKA.GD.ZS",
+            "metric_name": "Current account balance",
+            "unit": "% of GDP",
+            "group": "External"
+        },
+        "wb_fdi_pct_gdp": {
+            "wb_code": "BX.KLT.DINV.WD.GD.ZS",
+            "metric_name": "Foreign direct investment, net inflows",
+            "unit": "% of GDP",
+            "group": "External"
+        },
+        "wb_reserves_months": {
+            "wb_code": "FI.RES.TOTL.MO",
+            "metric_name": "Reserves",
+            "unit": "months of imports",
+            "group": "External"
+        },
+        "wb_external_debt_usd": {
+            "wb_code": "DT.DOD.DECT.CD",
+            "metric_name": "External debt stocks",
+            "unit": "current USD",
+            "group": "External",
+            "note": "Central government debt is not published for Uzbekistan; external debt stocks are, and the gold layer expresses them against GDP."
+        },
+        "wb_revenue_pct_gdp": {
+            "wb_code": "GC.REV.XGRT.GD.ZS",
+            "metric_name": "Revenue excluding grants",
+            "unit": "% of GDP",
+            "group": "Fiscal"
+        },
+        "wb_expense_pct_gdp": {
+            "wb_code": "GC.XPN.TOTL.GD.ZS",
+            "metric_name": "Expense",
+            "unit": "% of GDP",
+            "group": "Fiscal"
+        },
+        "wb_net_lending_pct_gdp": {
+            "wb_code": "GC.NLD.TOTL.GD.ZS",
+            "metric_name": "Net lending / net borrowing",
+            "unit": "% of GDP",
+            "group": "Fiscal"
+        },
+        "wb_poverty_national_pct": {
+            "wb_code": "SI.POV.NAHC",
+            "metric_name": "Poverty headcount, national line",
+            "unit": "% of population",
+            "group": "Living standards"
+        },
+        "wb_poverty_215_pct": {
+            "wb_code": "SI.POV.DDAY",
+            "metric_name": "Poverty headcount at $2.15 a day",
+            "unit": "% of population",
+            "group": "Living standards"
+        },
+        "wb_gini_index": {
+            "wb_code": "SI.POV.GINI",
+            "metric_name": "Gini index, household income",
+            "unit": "index",
+            "group": "Living standards",
+            "note": "Household income inequality, which is a different thing from the regional-output Gini computed in gold_transform.py."
+        }
+    },
+    "benchmark": {
+        "_comment": "Comparators. The seven post-Soviet neighbours are the peer group the IMF and World Bank use for Uzbekistan; Vietnam and Mongolia are carried as reform benchmarks outside the region. The three aggregates supply the regional and income-group averages that no individual country can.",
+        "countries": [
+            "UZB",
+            "KAZ",
+            "KGZ",
+            "TJK",
+            "TKM",
+            "AZE",
+            "ARM",
+            "GEO",
+            "MNG",
+            "VNM"
+        ],
+        "aggregates": [
+            "ECS",
+            "LMC",
+            "UMC"
+        ],
+        "indicators": {
+            "wb_real_gdp_per_capita": "NY.GDP.PCAP.KD",
+            "wb_real_gdp_growth_pct": "NY.GDP.MKTP.KD.ZG",
+            "wb_capital_formation_pct_gdp": "NE.GDI.TOTL.ZS",
+            "wb_inflation_cpi_pct": "FP.CPI.TOTL.ZG",
+            "wb_unemployment_pct": "SL.UEM.TOTL.ZS",
+            "wb_trade_pct_gdp": "NE.TRD.GNFS.ZS",
+            "wb_remittances_pct_gdp": "BX.TRF.PWKR.DT.GD.ZS",
+            "wb_agriculture_pct_gdp": "NV.AGR.TOTL.ZS",
+            "wb_industry_pct_gdp": "NV.IND.TOTL.ZS",
+            "wb_services_pct_gdp": "NV.SRV.TOTL.ZS",
+            "wb_employment_agriculture_pct": "SL.AGR.EMPL.ZS",
+            "wb_gni_per_capita_atlas": "NY.GNP.PCAP.CD",
+            "wb_dependency_ratio": "SP.POP.DPND"
+        }
+    }
+}

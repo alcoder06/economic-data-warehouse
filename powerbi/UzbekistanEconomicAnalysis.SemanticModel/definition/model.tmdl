@@ -1,0 +1,33 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-GB
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+annotation PBI_QueryOrder = ["DataFolder","Fact","Convergence","ConvergencePoints","GrowthAccounting","InvestmentEfficiency","SectorContributions","GrowthSensitivity","ShiftShare","Benchmark","Country","Year","Region","Metric","Price Basis","_Measure"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table Fact
+ref table Convergence
+ref table Year
+ref table Region
+ref table Metric
+ref table 'Price Basis'
+ref table _Measure
+ref table ConvergencePoints
+ref table GrowthAccounting
+ref table InvestmentEfficiency
+ref table SectorContributions
+ref table GrowthSensitivity
+ref table ShiftShare
+ref table Benchmark
+ref table Country
+
+ref cultureInfo en-US
+

@@ -1,0 +1,57 @@
+table GrowthSensitivity
+	lineageTag: dd870b0a-4a69-40e2-a1b9-f22b990e908d
+
+	column alpha
+		dataType: double
+		lineageTag: 7f2d8352-6bab-48db-9b6b-235c578ee38a
+		summarizeBy: none
+		sourceColumn: alpha
+
+		annotation SummarizationSetBy = Automatic
+
+	column delta
+		dataType: double
+		lineageTag: a3c730ce-9d0e-4e61-a0d4-06fa22ff1446
+		summarizeBy: none
+		sourceColumn: delta
+
+		annotation SummarizationSetBy = Automatic
+
+	column mean_tfp_contrib
+		dataType: double
+		lineageTag: c20811cd-7fbc-4b00-b76c-040066ddc527
+		summarizeBy: none
+		sourceColumn: mean_tfp_contrib
+
+		annotation SummarizationSetBy = Automatic
+
+	column mean_capital_contrib
+		dataType: double
+		lineageTag: 832ce935-3005-4950-b2e6-b9516c7745b2
+		summarizeBy: none
+		sourceColumn: mean_capital_contrib
+
+		annotation SummarizationSetBy = Automatic
+
+	column tfp_share_of_growth
+		dataType: double
+		lineageTag: 215a38d7-94bd-44fa-a431-86319ecadcb4
+		summarizeBy: none
+		sourceColumn: tfp_share_of_growth
+
+		annotation SummarizationSetBy = Automatic
+
+	partition GrowthSensitivity = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\fact_growth_sensitivity.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"alpha", type number}, {"delta", type number}, {"mean_tfp_contrib", type number}, {"mean_capital_contrib", type number}, {"tfp_share_of_growth", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

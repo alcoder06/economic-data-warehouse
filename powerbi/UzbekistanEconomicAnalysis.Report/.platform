@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "UzbekistanEconomicAnalysis"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "49a7c4c7-94ed-4aef-8b5d-8f950d82e59d"
+  }
+}

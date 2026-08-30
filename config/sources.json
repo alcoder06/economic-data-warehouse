@@ -16,7 +16,8 @@
   "labor_resources": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_515.csv",
   "economically_active_population": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_554.csv",
   "employment_rate": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1311.csv",
-  "unemployed_population": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1311.csv",
+  "unemployed_population": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_1313.csv",
   "active_enterprises": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_256.csv",
-  "registered_crimes": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_800.csv"
+  "registered_crimes": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_800.csv",
+  "population": "https://api.siat.stat.uz/media/uploads/sdmx/sdmx_data_246.csv"
 }

@@ -1,62 +1,337 @@
 {
     "regional_gdp": {
-        "unit": "billion UZS"
+        "indicator_name": "Volume of gross domestic (regional) product (annual)",
+        "official_code": "1.01.03.0001",
+        "unit": "billion UZS",
+        "unit_raw": "at current prices, billion soums",
+        "price_basis": "current",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "1299",
+        "methodology_url": "https://lib.stat.uz/ru/features-3/natsionalnye-scheta/288-metodicheskie-polozheniya-po-raschetu-valovogo-vnutrennego-produkta-proizvodstvennym-metodom",
+        "department": "Department on Macroeconomic Indicators and National Accounts",
+        "last_modified": "2026-01-27",
+        "notes": [
+            "for 2024 preliminary data;",
+            "including unallocated data by region",
+            "The data have been revised to take into account the non-observed economy in accordance with the 2008 SNA methodology."
+        ]
     },
     "fixed_capital_investment": {
-        "unit": "billion UZS"
+        "indicator_name": "The volume of investments in fixed assets (annual)",
+        "official_code": "1.04.01.0001",
+        "unit": "billion UZS",
+        "unit_raw": "billion soums",
+        "price_basis": "current",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "1326",
+        "methodology_url": "https://lib.stat.uz/images/metodika/rus-ilova.pdf",
+        "department": "Departmental classifier \"System of designation of administrative-territorial entities (objects) of the Republic of Uzbekistan\" (SOATO)",
+        "last_modified": "2026-08-27",
+        "notes": [
+            "In the total volume of investments into fixed assets, there is an unallocated volume according to regions"
+        ]
     },
     "fixed_capital_investment_per_capita": {
-        "unit": "thousand UZS"
+        "indicator_name": "The volume of investments in fixed assets per capita (annual)",
+        "official_code": "1.04.01.0006",
+        "unit": "thousand UZS",
+        "unit_raw": "thousands soums",
+        "price_basis": "current",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "1328",
+        "methodology_url": "It is calculated by dividing the volume of investments in fixed assets by the average number of permanent population",
+        "department": "Department of Investment and construction statistics",
+        "last_modified": "2026-08-27",
+        "notes": [
+            "1. In the Republic of Karakalpakstan: - Until 2019, the Buzatov district was part of the Kegeyli and Chimbay districts; - In 2013-2016, the Takhiatash city was part of the Khojaily region. 2. In Andijan region: - Since 2014, the Asaka city has been included in the Asaka region. 3. In Kashkadarya region: - The Shakhrisabz city was founded in 2017. 4. In the Navoi region: - In 2019, the Ghazgan district was formed. 5. In Surkhandarya region: - In 2011-2018, the Bandikhan district was part of the Kyzyrik district. 6. In the Tashkent region: - Since 2018, the Nurafshan, Okhangaron, Yangiyul cities and Tashkent district have been formed. 7. In the Khorezm region: - Tuprakkal`a district was formed in 2020, and the Khiva city - in 2017. 8. In the Tashkent city: - Yangikhayat district was formed in 2020."
+        ]
     },
     "construction_output": {
-        "unit": "billion UZS"
+        "indicator_name": "Volume of construction works (annual)",
+        "official_code": "1.04.02.0001",
+        "unit": "billion UZS",
+        "unit_raw": "billion soums",
+        "price_basis": "current",
+        "periodicity": null,
+        "source": "stat.uz",
+        "source_id": "2402",
+        "methodology_url": "https://lib.stat.uz/images/metodika/rus-ilova.pdf",
+        "department": "Department of Investment and construction statistics",
+        "last_modified": "2026-08-28",
+        "notes": [
+            "The total volume of completed construction works has an unallocated volume according to regions:- In 2019, the Ghazgan district was formed.5. In Surkhandarya region:- In 2011-2018, the Bandikhan district was part of the Kyzyrik district.6. In the Tashkent region:- Since 2018, the Nurafshan, Okhangaron, Yangiyul cities and Tashkent district have been formed.7. In the Khorezm region:- Tuprakkal`a district was formed in 2020, and the Khiva city - in 2017.8. In the Tashkent city:- Yangikhayat district was formed in 2020."
+        ]
     },
     "external_trade_turnover": {
-        "unit": "million USD"
+        "indicator_name": "Volume of foreign trade turnover (by regions)",
+        "official_code": "1.08.01.0001",
+        "unit": "million USD",
+        "unit_raw": "million USD",
+        "price_basis": "current",
+        "periodicity": "annually",
+        "source": "stat.uz",
+        "source_id": "2358",
+        "methodology_url": "https://lib.stat.uz/ru/features-3/vneshneekonomicheskaya-deyatelnost-i-torgovlya/665-kalit-ostida-yoki-sotish-uchun-mo-ljallangan-obyektlarda-qurilish-faoliyati-tanlanma-kuzatuvini-tashkil-etish-va-o-tkazish-bo-yicha-tartibni-tasdiqlash-to-g-risida-3",
+        "department": "Department of Foreign Economic Activity and Trade Statistics",
+        "last_modified": "2026-07-15",
+        "notes": [
+            "Final information for 2010-2024"
+        ]
     },
     "wholesale_trade": {
-        "unit": "million UZS"
+        "indicator_name": "Wholesale trade volume (annual)",
+        "official_code": "1.07.01.0001",
+        "unit": "million UZS",
+        "unit_raw": "million soums",
+        "price_basis": "current",
+        "periodicity": "annually",
+        "source": "stat.uz",
+        "source_id": "1494",
+        "methodology_url": "https://lib.stat.uz/ru/features-3/vneshneekonomicheskaya-deyatelnost-i-torgovlya/676-ichki-savdo-statistikasi-ko-rsatkichlarini-shakllantirish-bo-yicha-uslubiy-nizom-2",
+        "department": "Department of Foreign Economic Activity and Trade Statistics",
+        "last_modified": "2025-07-04",
+        "notes": [
+            "for 2010-2023"
+        ]
     },
     "retail_trade": {
-        "unit": "billion UZS"
+        "indicator_name": "Retail trade volume (annual)",
+        "official_code": "1.07.02.0001",
+        "unit": "billion UZS",
+        "unit_raw": "billions soums",
+        "price_basis": "current",
+        "periodicity": "annually",
+        "source": "stat.uz",
+        "source_id": "2704",
+        "methodology_url": "https://lib.stat.uz/uz/features/tashqi-iqtisodiy-faoliyat-va-savdo",
+        "department": "Department of Foreign Economic Activity and Trade Statistics",
+        "last_modified": "2025-07-04",
+        "notes": [
+            "for 2010-2023"
+        ]
     },
     "electricity_production": {
-        "unit": "million kWh"
+        "indicator_name": "Volume of electricity production",
+        "official_code": "1.02.02.0004",
+        "unit": "million kWh",
+        "unit_raw": "Million kWt hour",
+        "price_basis": "not applicable",
+        "periodicity": "Аnnual",
+        "source": "stat.uz",
+        "source_id": "440",
+        "methodology_url": "https://lib.stat.uz/uz/features/sanoat/428-sanoat-ishlab-chiqarishning-energiya-samaradorligini-aniqlash-bo-yicha-uslubiy-nizomga-kiritilayotgan-o-zgartirish-va-qo-shimchalar",
+        "department": "Department of Industry and Energy Statistics",
+        "last_modified": "2025-09-03",
+        "notes": [
+            "2010-2022 annual final indicators, 2023 year preliminary data, Republic of Uzbekistan (including unallocated data by region)"
+        ]
     },
     "industrial_output": {
-        "unit": "billion UZS"
+        "indicator_name": "Volume of industrial production (annual)",
+        "official_code": "1.02.01.0001",
+        "unit": "billion UZS",
+        "unit_raw": "Billion soums",
+        "price_basis": "current",
+        "periodicity": "Аnnual",
+        "source": "stat.uz",
+        "source_id": "552",
+        "methodology_url": "https://lib.stat.uz/uz/features/sanoat/679-sanoat-ishlab-chiqarishining-umumiy-hajmi-qiymatini-baholash-bo-yicha-uslubiy-nizom-ni-tasdiqlash-to-g-risida",
+        "department": "Department of Industry and Energy Statistics",
+        "last_modified": "2025-06-18",
+        "notes": [
+            "2010-2023 annual final indicators, 2024 year preliminary data, Republic of Uzbekistan (including unallocated data by region), in current prices"
+        ]
     },
     "consumer_goods_output": {
-        "unit": "billion UZS"
+        "indicator_name": "Volume of production of consumer products (annual)",
+        "official_code": "1.02.01.0005",
+        "unit": "billion UZS",
+        "unit_raw": "Billion soums",
+        "price_basis": "current",
+        "periodicity": "Аnnual",
+        "source": "stat.uz",
+        "source_id": "581",
+        "methodology_url": "https://lib.stat.uz/uz/features/sanoat/666-erbfgheheh5446456-2",
+        "department": "Department of Industry and Energy Statistics",
+        "last_modified": "2023-09-04",
+        "notes": [
+            "2010-2021 annual final indicators, 2022 year preliminary data, in current prices, according to the methodological regulation on the formation of the volume of production of consumer goods"
+        ]
     },
     "agricultural_output": {
-        "unit": "billion UZS"
+        "indicator_name": "Total volume of agricultural production (annual)",
+        "official_code": "1.03.02.0001",
+        "unit": "billion UZS",
+        "unit_raw": "billion soums",
+        "price_basis": "current",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "1439",
+        "methodology_url": "https://lib.stat.uz/ru/features-3/selskoe-khozyajstvo-i-ekologiya",
+        "department": "Department of Agriculture and Ecology Statistics",
+        "last_modified": "2025-09-16",
+        "notes": [
+            "The information is given for January-December"
+        ]
     },
     "air_pollutant_emissions": {
-        "unit": "thousand tons"
+        "indicator_name": "Pollutants released into the atmosphere",
+        "official_code": "3.02.02.0001",
+        "unit": "thousand tons",
+        "unit_raw": "thousand tons",
+        "price_basis": "not applicable",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "1569",
+        "methodology_url": "https://lib.stat.uz/ru/features-3/selskoe-khozyajstvo-i-ekologiya",
+        "department": "Department of agriculture and environment statistics",
+        "last_modified": "2025-06-30",
+        "notes": [
+            "The information is given for January-December"
+        ]
     },
     "births_total": {
-        "unit": "persons"
+        "indicator_name": "Number of births (total)",
+        "official_code": "2.01.01.0001",
+        "unit": "persons",
+        "unit_raw": "person",
+        "price_basis": "not applicable",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "223",
+        "methodology_url": "Number of births (total) - is the sum of the number of complete separations of the fetus from the mother's body, regardless of the gestational age. A live birth is a child born alive even with breathing, heartbeat, pulsation of the umbilical cord, and involuntary muscle contractions. In this case, the mother's pregnancy must be 22 weeks or more, the child's height must be 25 cm or more, and its weight must be 500 grams or more. Detail: https://lib.stat.uz/uz/features/demografiya-va-mehnat/853-asosiy-demografik-ko-rsatkichlarni-shakllantirish-bo-yicha-uslubiy-nizom-2",
+        "department": "Department of Demography, Labor and Gender Statistics",
+        "last_modified": "2026-04-20",
+        "notes": [
+            "Bozatov district was established in 2020; The city of Takhiatash was closed in 2013 and formed in 2018 as Takhiatash district; The city of Shahrisabz was founded in 2018; The city of Gazgan was founded in 2020; Bandikhan district was formed in 2020; The city of Nurafshan was founded in 2018; The city of Ahangaron was founded in 2018; Yangiyul city was founded in 2018; Tashkent district was established in 2018; The city of Khiva was founded in 2018; Tuproqqala district was established in 2021; Yangihayot district was formed in 2021; Kokdala district was formed in 2022."
+        ]
     },
     "deaths_total": {
-        "unit": "persons"
+        "indicator_name": "Deaths total",
+        "official_code": "2.01.01.0007",
+        "unit": "persons",
+        "unit_raw": "person",
+        "price_basis": "not applicable",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "226",
+        "methodology_url": "Number of deaths (total) is the sum of the numbers of complete cessation of biological and physiological processes of the body's life. Detail: https://lib.stat.uz/uz/features/demografiya-va-mehnat/853-asosiy-demografik-ko-rsatkichlarni-shakllantirish-bo-yicha-uslubiy-nizom-2",
+        "department": "Department of Demography, Labor and Gender Statistics",
+        "last_modified": "2026-04-20",
+        "notes": [
+            "Bozatov district was established in 2020; The city of Takhiatash was closed in 2013 and formed in 2018 as Takhiatash district; The city of Shahrisabz was founded in 2018; The city of Gazgan was founded in 2020; Bandikhan district was formed in 2020; The city of Nurafshan was founded in 2018; The city of Ahangaron was founded in 2018; Yangiyul city was founded in 2018; Tashkent district was established in 2018; The city of Khiva was founded in 2018; Tuproqqala district was established in 2021; Yangihayot district was formed in 2021; Kokdala district was formed in 2022."
+        ]
     },
     "labor_resources": {
-        "unit": "thousand persons"
+        "indicator_name": "The number of labor resources",
+        "official_code": "2.02.01.1000",
+        "unit": "thousand persons",
+        "unit_raw": "thousand people",
+        "price_basis": "not applicable",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "515",
+        "methodology_url": "The number of labor resources – The number of labor resources is defined as the sum of the number of the population of working age and the number of workers of younger and older age than the working age according to the following formula:  LR = WAPM + WTP, where: LR – labor resources; WAPM – working-age population of working age;  WTP – working teenagers and pensioners. Detail: https://lex.uz/en/docs/3469431",
+        "department": "Department of Demography, Labor and Gender Statistics",
+        "last_modified": "2026-04-20",
+        "notes": []
     },
     "economically_active_population": {
-        "unit": "thousand persons"
+        "indicator_name": "Number of economically active population",
+        "official_code": "2.02.01.1300",
+        "unit": "thousand persons",
+        "unit_raw": "thousand people",
+        "price_basis": "not applicable",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "554",
+        "methodology_url": "Economically active population – employed citizens and unemployed. Detail. https://lex.uz/en/docs/3469431",
+        "department": "Department of Demography and Labor Statistics",
+        "last_modified": "2026-04-20",
+        "notes": []
     },
     "employment_rate": {
-        "unit": "%"
+        "indicator_name": "Employment rate",
+        "official_code": "2.02.01.1900",
+        "unit": "%",
+        "unit_raw": "percent",
+        "price_basis": "not applicable",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "1311",
+        "methodology_url": "Employment rate – the number of people employed in the economy is calculated by dividing by the number of people of working age and multiplying by a hundred. Detail: https://lex.uz/en/docs/3469431",
+        "department": "Department of Demography, Labor and Gender Statistics",
+        "last_modified": "2026-04-20",
+        "notes": [
+            "The ratio of the number of employed population to the working age population",
+            "Preliminary data for 2024"
+        ]
     },
     "unemployed_population": {
-        "unit": "%"
+        "indicator_name": "Number of unemployed",
+        "official_code": "2.02.01.2000",
+        "unit": "thousand persons",
+        "unit_raw": "thousand people",
+        "price_basis": "not applicable",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "1313",
+        "methodology_url": "Accounting is carried out in accordance with Article 44 of the Law of the Republic of Uzbekistan “On employment of the population”.  The number of persons in need of employment (unemployed) is determined by subtracting from the number of labor resources the number of employed and the number of economically inactive population according to the formula:  U = LR - E - EIP, where: U – unemployed population in need of employment (unemployed); LR – labor resources; E – employed;  EIP – economically inactive population. Detail: https://lex.uz/en/docs/3469431",
+        "department": "Department of Demography, Labor and Gender Statistics",
+        "last_modified": "2026-04-20",
+        "notes": [
+            "Preliminary data for  2025"
+        ]
     },
     "active_enterprises": {
-        "unit": "units"
+        "indicator_name": "Number of operating enterprises and organizations (annually)",
+        "official_code": "1.09.01.0023",
+        "unit": "units",
+        "unit_raw": "Unit",
+        "price_basis": "not applicable",
+        "periodicity": "annually",
+        "source": "stat.uz",
+        "source_id": "256",
+        "methodology_url": "https://lex.uz/ru/docs/-2407581",
+        "department": "Management and System Maintenance of Statistical Registers",
+        "last_modified": "2026-01-09",
+        "notes": [
+            "Excluding dehkan farms and farms, as of January 1. According to the Decree of the President of the Republic of Uzbekistan No. PD-113 dated April 20, 2022, uniformity of databases is ensured Tax Committee, Statistic Agency and Ministry of Justice for registered legal entities."
+        ]
     },
     "registered_crimes": {
-        "unit": "units"
+        "indicator_name": "Number of registered crimes (total)",
+        "official_code": "2.04.09.0001",
+        "unit": "units",
+        "unit_raw": "units",
+        "price_basis": "not applicable",
+        "periodicity": "annual",
+        "source": "stat.uz",
+        "source_id": "800",
+        "methodology_url": "Statistical data on offenses are compiled based on the statistics of registered crimes provided by the Ministry of Internal Affairs of the Republic of Uzbekistan in accordance with the Statistics Program",
+        "department": "Department of Social Statistics",
+        "last_modified": "2026-04-22",
+        "notes": [
+            "Crimes registered by the Department of Public Security on Transport (DPST) are not distributed by region"
+        ]
+    },
+    "population": {
+        "indicator_name": "Permanent population-Total",
+        "official_code": "2.01.02.0001",
+        "unit": "thousand persons",
+        "unit_raw": "thousand people",
+        "price_basis": "not applicable",
+        "periodicity": "Per year",
+        "source": "stat.uz",
+        "source_id": "246",
+        "methodology_url": "Permanent population - consists of the population permanently residing in a certain locality or territory at the time of registration, including the population permanently registered in this territory but not temporarily residing. Estimate of the size of the permanent population - is calculated on the basis of the last population census, adding to it the number of people born and immigrating to a certain area each year, and subtracting the number of deaths and people who moved from a certain area. Detail: https://lib.stat.uz/uz/features/demografiya-va-mehnat/853-asosiy-demografik-ko-rsatkichlarni-shakllantirish-bo-yicha-uslubiy-nizom-2",
+        "department": "Department of Demography, Labor and Gender Statistics",
+        "last_modified": "2026-04-22",
+        "notes": [
+            "Bozatov district was established in 2020; The city of Takhiatash was closed in 2013 and formed in 2018 as Takhiatash district; The city of Shahrisabz was founded in 2018; The city of Gazgan was founded in 2020; Bandikhan district was formed in 2020; The city of Nurafshan was founded in 2018; The city of Ahangaron was founded in 2018; Yangiyul city was founded in 2018; Tashkent district was established in 2018; The city of Khiva was founded in 2018; Tuproqqala district was established in 2021; Yangihayot district was formed in 2021; Kokdala district was formed in 2022."
+        ]
     }
 }

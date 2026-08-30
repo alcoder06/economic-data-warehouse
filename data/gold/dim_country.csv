@@ -1,0 +1,14 @@
+country_code,country_name,is_aggregate,is_uzbekistan,peer_group
+ARM,Armenia,False,False,Post-Soviet peer
+AZE,Azerbaijan,False,False,Post-Soviet peer
+ECS,Europe & Central Asia,True,False,Aggregate
+GEO,Georgia,False,False,Post-Soviet peer
+KAZ,Kazakhstan,False,False,Post-Soviet peer
+KGZ,Kyrgyz Republic,False,False,Post-Soviet peer
+MNG,Mongolia,False,False,Reform comparator
+TJK,Tajikistan,False,False,Post-Soviet peer
+TKM,Turkmenistan,False,False,Post-Soviet peer
+UZB,Uzbekistan,False,True,Uzbekistan
+VNM,Viet Nam,False,False,Reform comparator
+XN,Lower middle income,True,False,Aggregate
+XT,Upper middle income,True,False,Aggregate

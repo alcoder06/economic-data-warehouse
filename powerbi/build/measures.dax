@@ -1,0 +1,320 @@
+// ============================================================================
+// Uzbekistan Economic Analysis - all 33 measures
+//
+// Create each in Power BI Desktop: select the _Measure table in the Data pane,
+// Home > New measure, paste one block, press Enter.
+//
+// The name is on the left of the "=" and Power BI takes it from there, so paste
+// the whole block including the name.
+//
+// Format strings and display folders are noted per measure. Set them in the
+// Measure tools ribbon after pasting.
+//
+// Order matters: base measures first, because later ones reference them.
+// ============================================================================
+
+
+// ---------------------------------------------------------------------------
+// 1. BASE  (display folder: 1 Base)
+// ---------------------------------------------------------------------------
+
+// format: #,##0.0
+Value (nominal) =
+VAR MetricsInScope = DISTINCTCOUNT('Metric'[metric_id])
+RETURN
+    IF(MetricsInScope > 1, BLANK(), SUM('Fact'[value]))
+
+
+// format: #,##0.0
+Value (real) =
+VAR MetricsInScope = DISTINCTCOUNT('Metric'[metric_id])
+RETURN
+    IF(MetricsInScope > 1, BLANK(), SUM('Fact'[real_value]))
+
+
+// format: #,##0.0000
+Value (real per capita) =
+VAR MetricsInScope = DISTINCTCOUNT('Metric'[metric_id])
+RETURN
+    IF(MetricsInScope > 1, BLANK(), SUM('Fact'[real_value_per_capita]))
+
+
+// ---------------------------------------------------------------------------
+// 2. NATIONAL GDP AND INVESTMENT  (display folder: 2 National)
+// ---------------------------------------------------------------------------
+
+// format: #,##0
+GDP Nominal =
+CALCULATE(
+    SUM('Fact'[value]),
+    'Metric'[metric_code] = "regional_gdp",
+    'Region'[is_national] = TRUE
+)
+
+
+// format: #,##0
+GDP Real =
+CALCULATE(
+    SUM('Fact'[real_value]),
+    'Metric'[metric_code] = "regional_gdp",
+    'Region'[is_national] = TRUE
+)
+
+
+// format: #,##0
+Investment Nominal =
+CALCULATE(
+    SUM('Fact'[value]),
+    'Metric'[metric_code] = "fixed_capital_investment",
+    'Region'[is_national] = TRUE
+)
+
+
+// format: #,##0
+Investment Real =
+CALCULATE(
+    SUM('Fact'[real_value]),
+    'Metric'[metric_code] = "fixed_capital_investment",
+    'Region'[is_national] = TRUE
+)
+
+
+// ---------------------------------------------------------------------------
+// 3. GROWTH  (display folder: 3 Growth)   all format: 0.0%
+// ---------------------------------------------------------------------------
+
+GDP Nominal Growth % =
+VAR ThisYear = MAX('Year'[year])
+VAR Current  = [GDP Nominal]
+VAR Previous =
+    CALCULATE([GDP Nominal], REMOVEFILTERS('Year'), 'Year'[year] = ThisYear - 1)
+RETURN
+    DIVIDE(Current - Previous, Previous)
+
+
+GDP Real Growth % =
+VAR ThisYear = MAX('Year'[year])
+VAR Current  = [GDP Real]
+VAR Previous =
+    CALCULATE([GDP Real], REMOVEFILTERS('Year'), 'Year'[year] = ThisYear - 1)
+RETURN
+    DIVIDE(Current - Previous, Previous)
+
+
+Investment Nominal Growth % =
+VAR ThisYear = MAX('Year'[year])
+VAR Current  = [Investment Nominal]
+VAR Previous =
+    CALCULATE([Investment Nominal], REMOVEFILTERS('Year'), 'Year'[year] = ThisYear - 1)
+RETURN
+    DIVIDE(Current - Previous, Previous)
+
+
+Investment Real Growth % =
+VAR ThisYear = MAX('Year'[year])
+VAR Current  = [Investment Real]
+VAR Previous =
+    CALCULATE([Investment Real], REMOVEFILTERS('Year'), 'Year'[year] = ThisYear - 1)
+RETURN
+    DIVIDE(Current - Previous, Previous)
+
+
+// ---------------------------------------------------------------------------
+// 4. THE NOMINAL ILLUSION  (display folder: 4 Nominal illusion)
+// ---------------------------------------------------------------------------
+
+// format: 0.00"x"
+Price Level Multiple =
+VAR FirstYear = MIN('Year'[year])
+VAR LastYear  = MAX('Year'[year])
+VAR First = CALCULATE(MAX('Year'[gdp_deflator]), 'Year'[year] = FirstYear)
+VAR Last  = CALCULATE(MAX('Year'[gdp_deflator]), 'Year'[year] = LastYear)
+RETURN
+    DIVIDE(Last, First)
+
+
+// format: 0.00"x"
+Nominal Growth Multiple =
+VAR FirstYear = MIN('Year'[year])
+VAR LastYear  = MAX('Year'[year])
+RETURN
+    DIVIDE(
+        CALCULATE([GDP Nominal], 'Year'[year] = LastYear),
+        CALCULATE([GDP Nominal], 'Year'[year] = FirstYear)
+    )
+
+
+// format: 0.00"x"
+Real Growth Multiple =
+VAR FirstYear = MIN('Year'[year])
+VAR LastYear  = MAX('Year'[year])
+RETURN
+    DIVIDE(
+        CALCULATE([GDP Real], 'Year'[year] = LastYear),
+        CALCULATE([GDP Real], 'Year'[year] = FirstYear)
+    )
+
+
+// format: 0.0%
+Share of Growth That Is Price =
+VAR NominalGrowth = [Nominal Growth Multiple] - 1
+VAR RealGrowth    = [Real Growth Multiple] - 1
+RETURN
+    IF(
+        NominalGrowth > 0,
+        1 - DIVIDE(RealGrowth, NominalGrowth)
+    )
+
+
+// ---------------------------------------------------------------------------
+// 5. INDEXED SERIES  (display folder: 4 Nominal illusion)   format: #,##0
+// Both rebased to the first year in context = 100, so the two lines start
+// together and the gap between them is the whole argument.
+// ---------------------------------------------------------------------------
+
+GDP Nominal Indexed =
+VAR BaseYear = CALCULATE(MIN('Year'[year]), ALLSELECTED('Year'))
+VAR BaseValue = CALCULATE([GDP Nominal], 'Year'[year] = BaseYear, ALLSELECTED('Year'))
+RETURN
+    DIVIDE([GDP Nominal], BaseValue) * 100
+
+
+GDP Real Indexed =
+VAR BaseYear = CALCULATE(MIN('Year'[year]), ALLSELECTED('Year'))
+VAR BaseValue = CALCULATE([GDP Real], 'Year'[year] = BaseYear, ALLSELECTED('Year'))
+RETURN
+    DIVIDE([GDP Real], BaseValue) * 100
+
+
+// ---------------------------------------------------------------------------
+// 6. THE SPURIOUS CORRELATION  (display folder: 5 Correlation)
+// ---------------------------------------------------------------------------
+
+// format: +0.000;-0.000
+// Reads the disconnected 'Price Basis' table to decide which pair to correlate.
+Corr GDP vs Investment =
+VAR UseReal = SELECTEDVALUE('Price Basis'[Basis], "Real") = "Real"
+VAR Pairs =
+    ADDCOLUMNS(
+        FILTER(
+            VALUES('Year'[year]),
+            'Year'[year] >= 2011 && 'Year'[year] <= 2024
+        ),
+        "@GDP", IF(UseReal, CALCULATE([GDP Real Growth %]), CALCULATE([GDP Nominal Growth %])),
+        "@Inv", IF(UseReal, CALCULATE([Investment Real Growth %]), CALCULATE([Investment Nominal Growth %]))
+    )
+VAR Clean = FILTER(Pairs, NOT ISBLANK([@GDP]) && NOT ISBLANK([@Inv]))
+VAR N     = COUNTROWS(Clean)
+VAR MeanX = AVERAGEX(Clean, [@GDP])
+VAR MeanY = AVERAGEX(Clean, [@Inv])
+VAR Cov   = SUMX(Clean, ([@GDP] - MeanX) * ([@Inv] - MeanY))
+VAR SdX   = SQRT(SUMX(Clean, ([@GDP] - MeanX) ^ 2))
+VAR SdY   = SQRT(SUMX(Clean, ([@Inv] - MeanY) ^ 2))
+RETURN
+    IF(N > 2, DIVIDE(Cov, SdX * SdY))
+
+
+// format: 0.0%
+// The two axis measures for the scatter, switched by the same toggle.
+GDP Growth (selected basis) =
+VAR UseReal = SELECTEDVALUE('Price Basis'[Basis], "Real") = "Real"
+RETURN
+    IF(UseReal, [GDP Real Growth %], [GDP Nominal Growth %])
+
+
+// format: 0.0%
+Investment Growth (selected basis) =
+VAR UseReal = SELECTEDVALUE('Price Basis'[Basis], "Real") = "Real"
+RETURN
+    IF(UseReal, [Investment Real Growth %], [Investment Nominal Growth %])
+
+
+// ---------------------------------------------------------------------------
+// 7. REGIONAL INEQUALITY  (display folder: 6 Regional)
+// Precomputed per year in gold_transform.py; AVERAGE not SUM so a multi-year
+// selection returns the mean coefficient rather than their meaningless total.
+// ---------------------------------------------------------------------------
+
+// format: 0.000
+Gini (real GDP per capita) = AVERAGE('Year'[gini_real_gdp_pc])
+
+// format: 0.000
+Gini (nominal GDP levels) = AVERAGE('Year'[gini_nominal_levels])
+
+// format: 0.000
+Regional Dispersion = AVERAGE('Year'[sigma_log_dispersion])
+
+
+// format: 0.0%
+Region Share of National % =
+VAR RegionValue = [Value (real)]
+VAR NationalValue =
+    CALCULATE([Value (real)], 'Region'[is_national] = TRUE, REMOVEFILTERS('Region'))
+RETURN
+    DIVIDE(RegionValue, NationalValue)
+
+
+// ---------------------------------------------------------------------------
+// 8. CONVERGENCE  (display folder: 7 Convergence)
+// 'Convergence' is disconnected: each row is a finished regression, read directly.
+// ---------------------------------------------------------------------------
+
+// format: +0.000;-0.000
+Beta Coefficient = SELECTEDVALUE('Convergence'[beta])
+
+// format: 0.000
+Beta P Value = SELECTEDVALUE('Convergence'[p_value])
+
+// format: 0.000
+Beta R Squared = SELECTEDVALUE('Convergence'[r_squared])
+
+// text
+Convergence Verdict = SELECTEDVALUE('Convergence'[verdict], "Select one period")
+
+
+// text - hex colour, bound through conditional formatting > Field value
+Convergence Verdict Colour =
+SWITCH(
+    SELECTEDVALUE('Convergence'[verdict]),
+    "convergence", "#2E7D5B",
+    "divergence",  "#B33A3A",
+    "#4A5761"
+)
+
+
+// ---------------------------------------------------------------------------
+// 9. DYNAMIC TITLES  (display folder: 8 Titles)   all text
+// Bind through the visual's Title > fx > Format style: Field value.
+// ---------------------------------------------------------------------------
+
+Convergence Title =
+VAR Period = SELECTEDVALUE('Convergence'[period])
+RETURN
+    IF(
+        ISBLANK(Period),
+        "Regional convergence: select a period",
+        Period & " (" & SELECTEDVALUE('Convergence'[start_year]) & "-" &
+        SELECTEDVALUE('Convergence'[end_year]) & "):  beta = " &
+        FORMAT(SELECTEDVALUE('Convergence'[beta]), "+0.000") & ",  p = " &
+        FORMAT(SELECTEDVALUE('Convergence'[p_value]), "0.000")
+    )
+
+
+Price Basis Title =
+"GDP and investment growth, " &
+LOWER(SELECTEDVALUE('Price Basis'[Basis], "real")) &
+" terms  (r = " & FORMAT([Corr GDP vs Investment], "+0.000") & ")"
+
+
+// ---------------------------------------------------------------------------
+// 10. CONVERGENCE SCATTER AXES  (display folder: 7 Convergence)
+// The scatter plots one point per region for the selected period. Both values
+// are precomputed per region in gold_transform.py; these only aggregate the
+// single matching row so the visual has a measure to bind an axis to.
+// ---------------------------------------------------------------------------
+
+// format: 0.00
+Initial Level (log) = AVERAGE('ConvergencePoints'[log_initial])
+
+// format: 0.0
+Annualised Growth % = AVERAGE('ConvergencePoints'[annual_growth_pct])

@@ -1,0 +1,93 @@
+table Convergence
+	lineageTag: 257d4f86-c757-43c3-8fb2-bb5cd706ea74
+
+	column period
+		dataType: string
+		lineageTag: 46a5f4ee-9062-43f3-94e1-771389f05eb3
+		summarizeBy: none
+		sourceColumn: period
+
+		annotation SummarizationSetBy = Automatic
+
+	column start_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 43463d82-c046-4416-9b98-590bbbe6504d
+		summarizeBy: sum
+		sourceColumn: start_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_year
+		dataType: int64
+		formatString: 0
+		lineageTag: 6470fd65-1af4-4fc7-bd56-f18f8e57cbcd
+		summarizeBy: sum
+		sourceColumn: end_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column beta
+		dataType: double
+		lineageTag: 078fac35-3618-4ba9-8356-c6e6d28db59e
+		summarizeBy: sum
+		sourceColumn: beta
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column p_value
+		dataType: double
+		lineageTag: 7f920364-11f8-4952-b808-910bcbcc2977
+		summarizeBy: sum
+		sourceColumn: p_value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column r_squared
+		dataType: double
+		lineageTag: f106e36e-e9b3-4bb2-8e93-f7ff2766fae2
+		summarizeBy: sum
+		sourceColumn: r_squared
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column n_regions
+		dataType: int64
+		formatString: 0
+		lineageTag: 98261d36-3060-4e2f-8d43-566510ba0cfd
+		summarizeBy: sum
+		sourceColumn: n_regions
+
+		annotation SummarizationSetBy = Automatic
+
+	column verdict
+		dataType: string
+		lineageTag: 9dfc73f8-cff6-4979-9e42-118b9d7062b7
+		summarizeBy: none
+		sourceColumn: verdict
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Convergence = m
+		mode: import
+		source =
+				let
+				     Source = Csv.Document(
+				      File.Contents(DataFolder & "\fact_convergence.csv"),
+				      [Delimiter=",", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+				  ),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"period", type text}, {"start_year", Int64.Type}, {"end_year", Int64.Type}, {"beta", type number}, {"p_value", type number}, {"r_squared", type number}, {"n_regions", Int64.Type}, {"verdict", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,83 @@
+table ShiftShare
+	lineageTag: 01dc089f-9a16-44f7-9879-859fe65692e4
+
+	column start_year
+		dataType: int64
+		formatString: 0
+		lineageTag: e1516ab8-dd7d-4f4d-9150-fac8cdce95b7
+		summarizeBy: none
+		sourceColumn: start_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column end_year
+		dataType: int64
+		formatString: 0
+		lineageTag: a718a061-b8e2-4497-be2f-9a190070801b
+		summarizeBy: none
+		sourceColumn: end_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_pct
+		dataType: double
+		lineageTag: 6c0cc897-0ffc-42bc-bc81-d0b906725cb9
+		summarizeBy: none
+		sourceColumn: total_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column within_pct
+		dataType: double
+		lineageTag: 9c9e5486-76fd-488b-af6e-2860915e9b6d
+		summarizeBy: none
+		sourceColumn: within_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column between_pct
+		dataType: double
+		lineageTag: 0b9836d6-be05-4764-9376-fea80373992c
+		summarizeBy: none
+		sourceColumn: between_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column interaction_pct
+		dataType: double
+		lineageTag: ba69673b-5d82-49ba-a388-efedc87bbdb7
+		summarizeBy: none
+		sourceColumn: interaction_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column period
+		dataType: string
+		lineageTag: cb002882-315b-48d5-9d61-22634cfec820
+		summarizeBy: none
+		sourceColumn: period
+
+		annotation SummarizationSetBy = Automatic
+
+	column decomposition
+		dataType: string
+		lineageTag: 8244017b-7d20-43de-ae23-1d56f898db3e
+		summarizeBy: none
+		sourceColumn: decomposition
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ShiftShare = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\fact_shift_share.csv"), [Delimiter=",", Columns=8, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"start_year", Int64.Type}, {"end_year", Int64.Type}, {"total_pct", type number}, {"within_pct", type number}, {"between_pct", type number}, {"interaction_pct", type number}, {"period", type text}, {"decomposition", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

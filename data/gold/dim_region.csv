@@ -1,16 +1,16 @@
-region_code,region_name
-1700,Republic of Uzbekistan
-1703,Andijan region
-1706,Bukhara region
-1708,Jizzakh region
-1710,Kashkadarya region
-1712,Navoi region
-1714,Namangan region
-1718,Samarkand region
-1722,Surkhandarya region
-1724,Syrdarya region
-1726,Tashkent city
-1727,Tashkent region
-1730,Fergana region
-1733,Khorezm region
-1735,Republic of Karakalpakstan
+region_code,region_name,is_national,region_type,region_short
+1700,Republic of Uzbekistan,True,Republic total,UZBEKISTAN
+1703,Andijan region,False,Region,Andijan
+1706,Bukhara region,False,Region,Bukhara
+1708,Jizzakh region,False,Region,Jizzakh
+1710,Kashkadarya region,False,Region,Kashkadarya
+1712,Navoi region,False,Region,Navoi
+1714,Namangan region,False,Region,Namangan
+1718,Samarkand region,False,Region,Samarkand
+1722,Surkhandarya region,False,Region,Surkhandarya
+1724,Syrdarya region,False,Region,Syrdarya
+1726,Tashkent city,False,City,Tashkent city
+1727,Tashkent region,False,Region,Tashkent
+1730,Fergana region,False,Region,Fergana
+1733,Khorezm region,False,Region,Khorezm
+1735,Republic of Karakalpakstan,False,Autonomous republic,Karakalpakstan

@@ -1,3 +1,10 @@
+import sys
+
+# Windows consoles default to a legacy codepage (cp1251 here), which kills any
+# print carrying a non-ASCII character. Force UTF-8 before anything prints.
+if hasattr(sys.stdout, "reconfigure"):
+    sys.stdout.reconfigure(encoding="utf-8")
+
 import importlib.util
 import sys
 from pathlib import Path

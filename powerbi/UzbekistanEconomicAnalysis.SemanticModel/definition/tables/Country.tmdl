@@ -1,0 +1,57 @@
+table Country
+	lineageTag: eeb6d335-c1b7-4a76-a709-1b05f46abd33
+
+	column country_code
+		dataType: string
+		lineageTag: 3671dd25-4652-493f-815d-e6e344dc6697
+		summarizeBy: none
+		sourceColumn: country_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column country_name
+		dataType: string
+		lineageTag: cbcc6e3d-b3e8-4df4-8cdd-156c587fe3e6
+		summarizeBy: none
+		sourceColumn: country_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_aggregate
+		dataType: boolean
+		lineageTag: a207851d-830d-4c55-90ee-ec9542e145ba
+		summarizeBy: none
+		sourceColumn: is_aggregate
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_uzbekistan
+		dataType: boolean
+		lineageTag: 6faf7f58-6a82-4d5c-9a8f-781daef0b859
+		summarizeBy: none
+		sourceColumn: is_uzbekistan
+
+		annotation SummarizationSetBy = Automatic
+
+	column peer_group
+		dataType: string
+		lineageTag: 8d8a30d7-8a7b-46d8-b9e8-caf7d9774690
+		summarizeBy: none
+		sourceColumn: peer_group
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Country = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\dim_country.csv"), [Delimiter=",", Columns=5, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"country_code", type text}, {"country_name", type text}, {"is_aggregate", type logical}, {"is_uzbekistan", type logical}, {"peer_group", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

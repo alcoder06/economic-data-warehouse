@@ -1,0 +1,7 @@
+expression DataFolder = "D:\Projects\Economic analysis Uzbekistan\data\gold" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: bf3e84e7-22b5-47a0-8ff8-a8f31c05f343
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Text
+

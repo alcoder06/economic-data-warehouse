@@ -1,0 +1,159 @@
+table Metric
+	lineageTag: 4e4c877c-667b-43dc-b752-b70ddd18ba86
+
+	column metric_id
+		dataType: int64
+		formatString: 0
+		lineageTag: b03d8505-9f0f-4e59-aaab-3a301e39c832
+		summarizeBy: none
+		sourceColumn: metric_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric_code
+		dataType: string
+		lineageTag: 1dc78e6f-1639-402a-bcbd-b0e19a702e80
+		summarizeBy: none
+		sourceColumn: metric_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric_name
+		dataType: string
+		lineageTag: cbad345f-025e-4bfc-9df3-a3253155c7c2
+		summarizeBy: none
+		sourceColumn: metric_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric_short
+		dataType: string
+		lineageTag: 14db84d4-13a9-4f06-b0a0-3b6b8675afe7
+		summarizeBy: none
+		sourceColumn: metric_short
+
+		annotation SummarizationSetBy = Automatic
+
+	column official_code
+		dataType: string
+		lineageTag: ce625956-9f2f-4059-86c4-6ef66a685da5
+		summarizeBy: none
+		sourceColumn: official_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit
+		dataType: string
+		lineageTag: 900ee2b1-d727-4c4e-b570-8939663d608a
+		summarizeBy: none
+		sourceColumn: unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit_raw
+		dataType: string
+		lineageTag: d04d4d3f-7d84-42e1-a545-6e0f3b5450c6
+		summarizeBy: none
+		sourceColumn: unit_raw
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_basis
+		dataType: string
+		lineageTag: 451b16fc-4f79-4d7e-9d0a-badf5ac2f7da
+		summarizeBy: none
+		sourceColumn: price_basis
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_deflatable
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: adc440f1-9932-404f-a01a-b04449990cb9
+		summarizeBy: none
+		sourceColumn: is_deflatable
+
+		annotation SummarizationSetBy = Automatic
+
+	column per_capita_meaningful
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: cf34907d-df6c-46cd-8428-5ebc1201fdf1
+		summarizeBy: none
+		sourceColumn: per_capita_meaningful
+
+		annotation SummarizationSetBy = Automatic
+
+	column source
+		dataType: string
+		lineageTag: 5cd8e0df-56fa-4631-9f4c-bfd10f363c9a
+		summarizeBy: none
+		sourceColumn: source
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_id
+		dataType: string
+		lineageTag: c5f438eb-49bc-4862-b757-148f2839b404
+		summarizeBy: none
+		sourceColumn: source_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column grain
+		dataType: string
+		lineageTag: 3f00dd89-4653-484d-adc9-91dc634fbb53
+		summarizeBy: none
+		sourceColumn: grain
+
+		annotation SummarizationSetBy = Automatic
+
+	column metric_group
+		dataType: string
+		lineageTag: 5396b4b0-a813-4942-83bb-a557f39b60c9
+		summarizeBy: none
+		sourceColumn: metric_group
+
+		annotation SummarizationSetBy = Automatic
+
+	column periodicity
+		dataType: string
+		lineageTag: 46fc6efe-0df9-4c3e-a05b-c7543a51e053
+		summarizeBy: none
+		sourceColumn: periodicity
+
+		annotation SummarizationSetBy = Automatic
+
+	column methodology_url
+		dataType: string
+		lineageTag: b8732f02-1f70-4e1f-9a43-8c9755cbd8b9
+		summarizeBy: none
+		sourceColumn: methodology_url
+
+		annotation SummarizationSetBy = Automatic
+
+	column notes
+		dataType: string
+		lineageTag: b2607513-82e3-4b66-ad92-813a3070eec5
+		summarizeBy: none
+		sourceColumn: notes
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Metric = m
+		mode: import
+		source =
+				let
+				     Source = Csv.Document(
+				      File.Contents(DataFolder & "\dim_metric.csv"),
+				      [Delimiter=",", Columns=17, Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+				  ),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"metric_id", Int64.Type}, {"metric_code", type text}, {"metric_name", type text}, {"metric_short", type text}, {"official_code", type text}, {"unit", type text}, {"unit_raw", type text}, {"price_basis", type text}, {"is_deflatable", type logical}, {"per_capita_meaningful", type logical}, {"source", type text}, {"source_id", type text}, {"grain", type text}, {"metric_group", type text}, {"periodicity", type text}, {"methodology_url", type text}, {"notes", type text}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

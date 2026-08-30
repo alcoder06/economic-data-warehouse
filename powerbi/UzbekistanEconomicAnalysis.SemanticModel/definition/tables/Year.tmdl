@@ -1,0 +1,162 @@
+table Year
+	lineageTag: 8dbe211e-a7eb-4bf9-a596-0344570b5edf
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 3c88bd37-3a5d-4a0f-9f6a-c8e903967e7c
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column gdp_deflator
+		dataType: double
+		lineageTag: 62a52e99-a6f6-4aac-ab0d-954fcb1fb299
+		summarizeBy: none
+		sourceColumn: gdp_deflator
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column cpi
+		dataType: double
+		lineageTag: 9ea033e1-70df-4a8b-ac55-50cc441bbef3
+		summarizeBy: none
+		sourceColumn: cpi
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column exchange_rate_uzs_usd
+		dataType: double
+		lineageTag: f10ec445-3fc2-45d6-b3d7-d85737402a6a
+		summarizeBy: none
+		sourceColumn: exchange_rate_uzs_usd
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column real_gdp_growth_pct
+		dataType: double
+		lineageTag: 1ca2839e-ca19-4fdc-9def-d6e05e87195f
+		summarizeBy: none
+		sourceColumn: real_gdp_growth_pct
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column deflator_ratio
+		dataType: double
+		isHidden
+		lineageTag: 6860688d-a690-424f-9c67-66f2968772c7
+		summarizeBy: none
+		sourceColumn: deflator_ratio
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column currency_era
+		dataType: string
+		lineageTag: 30cca530-3378-4d1b-8f2e-179300fba147
+		summarizeBy: none
+		sourceColumn: currency_era
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_float_year
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: d16b8fa6-53ad-47dd-abf8-c491a24f2caa
+		summarizeBy: none
+		sourceColumn: is_float_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column policy_era
+		dataType: string
+		lineageTag: 6de6a296-87da-4dcb-9258-163e95e0666a
+		summarizeBy: none
+		sourceColumn: policy_era
+
+		annotation SummarizationSetBy = Automatic
+
+	column decade
+		dataType: string
+		lineageTag: 48a0df2b-42b7-4fe2-b7d3-996b6f2b98cc
+		summarizeBy: none
+		sourceColumn: decade
+
+		annotation SummarizationSetBy = Automatic
+
+	column has_regional_data
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 399b38fe-0ac8-4783-94a0-f356fc8cee78
+		summarizeBy: none
+		sourceColumn: has_regional_data
+
+		annotation SummarizationSetBy = Automatic
+
+	column gini_real_gdp_pc
+		dataType: double
+		lineageTag: 8f5e3e94-6955-405d-8558-95324bb89c78
+		summarizeBy: none
+		sourceColumn: gini_real_gdp_pc
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column gini_nominal_levels
+		dataType: double
+		lineageTag: 2ae19d72-a62f-4d70-b3a4-226b47b77b67
+		summarizeBy: none
+		sourceColumn: gini_nominal_levels
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column sigma_log_dispersion
+		dataType: double
+		lineageTag: b1bb0553-1730-4e42-a2df-cc886ae7d3ec
+		summarizeBy: none
+		sourceColumn: sigma_log_dispersion
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column in_analysis_window
+		dataType: boolean
+		lineageTag: 56120c7e-80c5-413a-b8d1-a30fac31d5ce
+		summarizeBy: none
+		sourceColumn: in_analysis_window
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Year = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(
+				      File.Contents(DataFolder & "\dim_year.csv"),
+				      [Delimiter=",", Columns=15, Encoding=65001, QuoteStyle=QuoteStyle.Csv]
+				  ),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"year", Int64.Type}, {"gdp_deflator", type number}, {"cpi", type number}, {"exchange_rate_uzs_usd", type number}, {"real_gdp_growth_pct", type number}, {"deflator_ratio", type number}, {"currency_era", type text}, {"is_float_year", type logical}, {"policy_era", type text}, {"decade", type text}, {"has_regional_data", type logical}, {"in_analysis_window", type logical}, {"gini_real_gdp_pc", type number}, {"gini_nominal_levels", type number}, {"sigma_log_dispersion", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,50 @@
+table ConvergencePoints
+	lineageTag: 4a24a091-fff2-4b67-9af6-1e89e59f450e
+
+	column period
+		dataType: string
+		lineageTag: f74c4933-8036-4862-9c75-a30a20a7d17a
+		summarizeBy: none
+		sourceColumn: period
+
+		annotation SummarizationSetBy = Automatic
+
+	column region_code
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e391948-a1f3-4811-95c6-14e5980bba17
+		summarizeBy: none
+		sourceColumn: region_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column log_initial
+		dataType: double
+		lineageTag: fec3a03f-c5df-4685-94ae-779b5cd454f0
+		summarizeBy: none
+		sourceColumn: log_initial
+
+		annotation SummarizationSetBy = Automatic
+
+	column annual_growth_pct
+		dataType: double
+		lineageTag: 77a742de-834f-4beb-bc90-d5f5c4afae5e
+		summarizeBy: none
+		sourceColumn: annual_growth_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	partition ConvergencePoints = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\fact_convergence_points.csv"), [Delimiter=",", Columns=4, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"period", type text}, {"region_code", Int64.Type}, {"log_initial", type number}, {"annual_growth_pct", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+

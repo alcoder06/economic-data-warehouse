@@ -1,0 +1,98 @@
+table GrowthAccounting
+	lineageTag: 8aa38d86-4e76-4613-83c2-ed324d597922
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: be9223e3-a8ed-4bcd-ba43-8252e10f0c95
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column real_growth_pct
+		dataType: double
+		lineageTag: 2ca84a9d-4438-4dc5-a949-ed9be2e8f344
+		summarizeBy: none
+		sourceColumn: real_growth_pct
+
+		annotation SummarizationSetBy = Automatic
+
+	column capital_contrib
+		dataType: double
+		lineageTag: 5845675f-91b2-44d1-9f2f-aea889b4f93b
+		summarizeBy: none
+		sourceColumn: capital_contrib
+
+		annotation SummarizationSetBy = Automatic
+
+	column labour_contrib
+		dataType: double
+		lineageTag: 1ea0edc4-04ad-4ab0-aef6-01747ba49f20
+		summarizeBy: none
+		sourceColumn: labour_contrib
+
+		annotation SummarizationSetBy = Automatic
+
+	column tfp_contrib
+		dataType: double
+		lineageTag: 6b8a7c52-ad72-4116-b418-f96603a7ae5c
+		summarizeBy: none
+		sourceColumn: tfp_contrib
+
+		annotation SummarizationSetBy = Automatic
+
+	column capital_stock
+		dataType: double
+		lineageTag: 96f3cb25-c5b9-4495-ac28-0f55ecc47aff
+		summarizeBy: none
+		sourceColumn: capital_stock
+
+		annotation SummarizationSetBy = Automatic
+
+	column capital_output_ratio
+		dataType: double
+		lineageTag: 1a08e683-80fd-452a-a4d4-637959dcffce
+		summarizeBy: none
+		sourceColumn: capital_output_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column employed_persons
+		dataType: double
+		lineageTag: 83344445-0e24-4d8e-acfa-a2db90870cb0
+		summarizeBy: none
+		sourceColumn: employed_persons
+
+		annotation SummarizationSetBy = Automatic
+
+	column alpha
+		dataType: double
+		lineageTag: d9984bc9-943a-43b3-bc05-a1d50118845e
+		summarizeBy: none
+		sourceColumn: alpha
+
+		annotation SummarizationSetBy = Automatic
+
+	column delta
+		dataType: double
+		lineageTag: 9dc89be0-8f55-40db-b0e4-897e8a375fce
+		summarizeBy: none
+		sourceColumn: delta
+
+		annotation SummarizationSetBy = Automatic
+
+	partition GrowthAccounting = m
+		mode: import
+		source =
+				let
+				    Source = Csv.Document(File.Contents(DataFolder & "\fact_growth_accounting.csv"), [Delimiter=",", Columns=10, Encoding=65001, QuoteStyle=QuoteStyle.Csv]),
+				    #"Promoted Headers" = Table.PromoteHeaders(Source, [PromoteAllScalars=true]),
+				    #"Changed Type" = Table.TransformColumnTypes(#"Promoted Headers",{{"year", Int64.Type}, {"real_growth_pct", type number}, {"capital_contrib", type number}, {"labour_contrib", type number}, {"tfp_contrib", type number}, {"capital_stock", type number}, {"capital_output_ratio", type number}, {"employed_persons", type number}, {"alpha", type number}, {"delta", type number}})
+				in
+				    #"Changed Type"
+
+	annotation PBI_NavigationStepName = Navigation
+
+	annotation PBI_ResultType = Table
+
